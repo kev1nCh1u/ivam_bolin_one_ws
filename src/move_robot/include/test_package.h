@@ -1100,15 +1100,15 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 			float cmd_angular_velocity_buf = 0.0;
 			int now_index = 0;
 			float odom_v = 0.4;
-       if(!back_trajectory)
-       {
+    //    if(!back_trajectory)
+    //    {
           target_ind = calc_target_index(robot_pos, odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
-       }
-       else
-       {
-      //     //target_ind = calc_target_index(robot_pos, odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
-           target_ind = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1;
-       }
+    //    }
+    //    else
+    //    {
+    //   //     //target_ind = calc_target_index(robot_pos, odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
+    //        target_ind = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1;
+    //    }
 
 
 
@@ -1416,14 +1416,14 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 
 		//////////////////////////
 		//查找目前所應追尋的點
-    if(!back_trajectory)
-    {
+    // if(!back_trajectory)
+    // {
         target_ind = calc_target_index(robot_pos, Rev_odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
-    }
-    else
-    {
-        target_ind = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1;
-    }
+    // }
+    // else
+    // {
+    //     target_ind = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1;
+    // }
 
 		//目標點
 		target_pos = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint[target_ind];
