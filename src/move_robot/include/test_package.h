@@ -1748,12 +1748,12 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				// 		cmd_angular_velocity = -1 * 1.55;
 				// }
 
-				if (fabs(cmd_angular_velocity) >= 0.9)
+				if (fabs(cmd_angular_velocity) >= 0.3)
 				{
 					if (cmd_angular_velocity > 0)
-						cmd_angular_velocity = 0.9;
+						cmd_angular_velocity = 0.3;
 					else
-						cmd_angular_velocity = -1 * 0.9;
+						cmd_angular_velocity = -1 * 0.3;
 				}
 
 				//w過大會減速（意味可能有再轉彎）
