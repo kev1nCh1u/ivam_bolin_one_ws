@@ -1731,21 +1731,29 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				//     }
 				// }
 				if(back_trajectory) // kevin fuzzy 前85
-				{
-					angular_velocity_kp = 3.0;
-				}
+				// {
+				// 	angular_velocity_kp = 3.0;
+				// }
 
 				cmd_angular_velocity = angular_velocity_kp * angular_velocity_p_error + angular_velocity_kd * angular_velocity_d_error;
 
 				std::cout << "cmd_angular_velocity " << cmd_angular_velocity * 180.0 / M_PI << std::endl;
 
 				//protect // kevin limit 1.55 導航角度度限制
-				if (fabs(cmd_angular_velocity) >= 1.55)
+				// if (fabs(cmd_angular_velocity) >= 1.55)
+				// {
+				// 	if (cmd_angular_velocity > 0)
+				// 		cmd_angular_velocity = 1.55;
+				// 	else
+				// 		cmd_angular_velocity = -1 * 1.55;
+				// }
+
+				if (fabs(cmd_angular_velocity) >= 0.9)
 				{
 					if (cmd_angular_velocity > 0)
-						cmd_angular_velocity = 1.55;
+						cmd_angular_velocity = 0.9;
 					else
-						cmd_angular_velocity = -1 * 1.55;
+						cmd_angular_velocity = -1 * 0.9;
 				}
 
 				//w過大會減速（意味可能有再轉彎）
