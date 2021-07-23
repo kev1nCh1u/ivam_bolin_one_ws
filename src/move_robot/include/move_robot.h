@@ -2323,9 +2323,10 @@ int Move_Robot::calc_back_target_index(Eigen::Vector3f &robot_pose, float &robot
 	now_index = index;
 
 	float k = target_index_V_ratio;
-	float Lfc = target_index_distance;
+	// float Lfc = target_index_distance;
+    float Lfc = 2.0;
 
-	float Lf = 1.0;
+	float Lf = k*robot_v + Lfc;
 	float L = 0;
 
 	//依速度調整前世距離的點

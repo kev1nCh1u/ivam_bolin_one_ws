@@ -1385,14 +1385,15 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		//查找目前所應追尋的點
 		//////////////////////////
 		// kevin
-		// if(!back_trajectory)
-		// {
-		target_ind = calc_target_index(robot_pos, Rev_odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
-		// }
-		// else
-		// {
-		//     target_ind = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1;
-		// }
+		if(!back_trajectory)
+		{
+			target_ind = calc_target_index(robot_pos, Rev_odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
+		}
+		else
+		{
+		    // target_ind = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1;
+			target_ind = calc_back_target_index(robot_pos, Rev_odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
+		}
 
 		//目標點
 		target_pos = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint[target_ind];
@@ -1731,30 +1732,30 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				//     }
 				// }
 				if(back_trajectory) // kevin fuzzy 前85
-				// {
-				// 	angular_velocity_kp = 3.0;
-				// }
+				{
+					angular_velocity_kp = 3.0;
+				}
 
 				cmd_angular_velocity = angular_velocity_kp * angular_velocity_p_error + angular_velocity_kd * angular_velocity_d_error;
 
 				std::cout << "cmd_angular_velocity " << cmd_angular_velocity * 180.0 / M_PI << std::endl;
 
-				//protect // kevin limit 1.55 導航角度度限制
-				// if (fabs(cmd_angular_velocity) >= 1.55)
-				// {
-				// 	if (cmd_angular_velocity > 0)
-				// 		cmd_angular_velocity = 1.55;
-				// 	else
-				// 		cmd_angular_velocity = -1 * 1.55;
-				// }
-
-				if (fabs(cmd_angular_velocity) >= 0.1)
+				// protect kevin limit 1.55 導航角度度限制
+				if (fabs(cmd_angular_velocity) >= 1.55)
 				{
 					if (cmd_angular_velocity > 0)
-						cmd_angular_velocity = 0.1;
+						cmd_angular_velocity = 1.55;
 					else
-						cmd_angular_velocity = -1 * 0.1;
+						cmd_angular_velocity = -1 * 1.55;
 				}
+
+				// if (fabs(cmd_angular_velocity) >= 0.9)
+				// {
+				// 	if (cmd_angular_velocity > 0)
+				// 		cmd_angular_velocity = 0.9;
+				// 	else
+				// 		cmd_angular_velocity = -1 * 0.9;
+				// }
 
 				//w過大會減速（意味可能有再轉彎）
 				if (v_buf > Min_nav_speed)
