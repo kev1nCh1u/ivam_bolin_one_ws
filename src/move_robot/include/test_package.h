@@ -2091,7 +2091,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		{
 			// back_final_pose = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint[A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1];
 			// float x_error = fabs(back_final_pose.x() - robot_pos.x());
-			if (confirm_last_diff_angle && dis_error <= 0.25 && !Endangle)  // kevin Precision
+			if (confirm_last_diff_angle && dis_error <= 0.02 && !Endangle)  // kevin Precision
 			{
 				std::cout << "==============================let endangle true==========================" << std::endl;
 				Endangle = true;
