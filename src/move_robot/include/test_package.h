@@ -1989,7 +1989,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 
 		if (Endangle)
 		{
-			if (last_type == MISSON_back_tracking)
+			if (last_type == MISSON_back_tracking || back_trajectory)
 			{
 				std::cout << "last_type == MISSON_back_tracking" << std::endl;
 				Caculate_W_rw(target_pos.z(), robot_pos, angular_error, pre_angular_error, cmd_angular_velocity, 1);
