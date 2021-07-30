@@ -1956,19 +1956,30 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				float stop_angle = atan2((target_pos.y() - robot_pos.y()), (target_pos.x() - robot_pos.x()));
 				Caculate_W_rw(stop_angle, robot_pos, angular_velocity_error, pre_angular_velocity_error, cmd_angular_velocity, 0);
 
+				std::cout << "$$$$$ kevin cmd_angular_velocity: " << cmd_angular_velocity << std::endl;
+
 				angular_error = angular_velocity_error;
 
 				// }
 			}
 
-			//protect
-			if (fabs(cmd_angular_velocity) >= 0.7)
+			// protect kevin limit 1.55 導航角度度限制
+			if (fabs(cmd_angular_velocity) >= 1.55)
 			{
 				if (cmd_angular_velocity > 0)
-					cmd_angular_velocity = 0.7;
+					cmd_angular_velocity = 1.55;
 				else
-					cmd_angular_velocity = -1 * 0.7;
+					cmd_angular_velocity = -1 * 1.55;
 			}
+
+			//protect
+			// if (fabs(cmd_angular_velocity) >= 0.7)
+			// {
+			// 	if (cmd_angular_velocity > 0)
+			// 		cmd_angular_velocity = 0.7;
+			// 	else
+			// 		cmd_angular_velocity = -1 * 0.7;
+			// }
 
 			V_rv = cmd_v;
 			// Vx = cmd_vx;
@@ -4461,6 +4472,12 @@ void test_package::Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, fl
 	float angular_kd = tracking_kd;
 	float compare_angular_error = 1;
 	float compare_stop_angle = 1;
+
+	// kevin
+	if(back_trajectory)
+	{
+		angular_kp =  3.0;
+	}
 
 	if (special == 0) //一般模式（導航）
 	{
