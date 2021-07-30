@@ -1992,6 +1992,12 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			// Vy = cmd_vy;
 			W_rw = cmd_angular_velocity;
 
+			// kevin
+			if(back_trajectory)
+			{
+				W_rw = -1 * W_rw;
+			}
+
 			//Car.four_wheel_Kinematics_rpm(Vx,Vy,W_rw,Rev_odom_t1,Rev_odom_t2,Rev_odom_t3,Rev_odom_t4,rpm,theta);
 
 			v_buf = cmd_velocity;
