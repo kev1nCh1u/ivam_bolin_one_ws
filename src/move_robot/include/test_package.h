@@ -961,6 +961,12 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 	//     return true;
 	// }
 
+	// kevin return true;
+	if(last_type == 20)
+	{
+	    return true;
+	}
+
 	static bool isFInish = false;
 	static bool isInitial = true;
 	static int target_ind = 0;
