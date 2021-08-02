@@ -961,12 +961,6 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 	//     return true;
 	// }
 
-	// kevin return true;
-	if(last_type == 20)
-	{
-	    return true;
-	}
-
 	static bool isFInish = false;
 	static bool isInitial = true;
 	static int target_ind = 0;
@@ -1008,6 +1002,11 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 			int first_type = A_misson[0].sub_missonPath[0].start_type;
 			if (first_type == MISSON_back_tracking)
 				return true;
+		}
+		// kevin return true;
+		if(last_type == 20)
+		{
+			return true;
 		}
 
 		if (isInitial)
