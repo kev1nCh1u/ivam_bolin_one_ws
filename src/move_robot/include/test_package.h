@@ -1994,7 +1994,8 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			// kevin
 			if(back_trajectory)
 			{
-				W_rw = -1 * W_rw;
+				// W_rw = -1 * W_rw;
+				W_rw = 0;
 			}
 
 			//Car.four_wheel_Kinematics_rpm(Vx,Vy,W_rw,Rev_odom_t1,Rev_odom_t2,Rev_odom_t3,Rev_odom_t4,rpm,theta);
@@ -2113,7 +2114,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		{
 			// back_final_pose = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint[A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1];
 			// float x_error = fabs(back_final_pose.x() - robot_pos.x());
-			if (confirm_last_diff_angle && dis_error <= 0.5 && !Endangle)  // kevin Precision
+			if (confirm_last_diff_angle && dis_error <= 0.05 && !Endangle)  // kevin Precision
 			{
 				std::cout << "==============================let endangle true==========================" << std::endl;
 				Endangle = true;
