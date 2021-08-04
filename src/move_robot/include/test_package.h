@@ -437,7 +437,7 @@ void test_package::State_Machine(int &state)
 
 			if (previous_type == MISSON_back_tracking)
 			{
-				std::cout << "==========test0=========" << std::endl;
+				std::cout << "previous_type == MISSON_back_tracking" << std::endl;
 				back_trajectory = true;
 				//type19_use = true;
 			}
@@ -453,7 +453,7 @@ void test_package::State_Machine(int &state)
 				}
 				if (turn_use_backtra)
 				{
-					std::cout << "==========test1=========" << std::endl;
+					std::cout << "turn_use_backtra" << std::endl;
 					back_trajectory = true;
 				}
 				else
@@ -471,11 +471,11 @@ void test_package::State_Machine(int &state)
 		else if (now_path_index == 0 && now_A_misson >= 1)
 		{
 			previous_type = A_misson[now_A_misson - 1].sub_missonPath[A_misson[now_A_misson - 1].sub_missonPath.size() - 1].end_type;
-			std::cout << "previous_type1111 = " << previous_type << std::endl;
+			std::cout << "previous_type = " << previous_type << std::endl;
 
 			if (previous_type == MISSON_back_tracking)
 			{
-				std::cout << "==========test2=========" << std::endl;
+				std::cout << "previous_type == MISSON_back_tracking" << std::endl;
 				back_trajectory = true;
 				//type19_use = true;
 			}
@@ -483,7 +483,7 @@ void test_package::State_Machine(int &state)
 			{
 				if (turn_use_backtra)
 				{
-					std::cout << "==========test3=========" << std::endl;
+					std::cout << "previous_type == else" << std::endl;
 					back_trajectory = true;
 				}
 				else
@@ -1212,7 +1212,7 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 			target_ind = 0;
 			pre_angular_error = 0;
 			cmd_angular_cnt = 0;
-			std::cout << "=======================test=====2" << std::endl;
+			std::cout << "track angle isFInish" << std::endl;
 			return true;
 		}
 	}
@@ -1462,7 +1462,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				y_error_robot = x_error_world * sin(-1 * robot_pos.z()) + y_error_world * cos(-1 * robot_pos.z());
 
 				//tra.world2robot(target_pos,finial_target_p,x_error_robot,y_error_robot);
-				std::cout << "B GGGGGGGGG" << std::endl;
+				std::cout << "no last target" << std::endl;
 			}
 			//由上面得知的向量可以知道目前路徑之行使方向way_theta
 			float way_theta = atan2(y_error_robot, x_error_robot);
@@ -1961,7 +1961,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				float stop_angle = atan2((target_pos.y() - robot_pos.y()), (target_pos.x() - robot_pos.x()));
 				Caculate_W_rw(stop_angle, robot_pos, angular_velocity_error, pre_angular_velocity_error, cmd_angular_velocity, 0);
 
-				std::cout << "$$$$$ kevin cmd_angular_velocity: " << cmd_angular_velocity << std::endl;
+				// std::cout << "$$$$$ kevin cmd_angular_velocity: " << cmd_angular_velocity << std::endl;
 
 				angular_error = angular_velocity_error;
 
@@ -2003,7 +2003,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			v_buf = cmd_velocity;
 			//std::cout<<"===============last_Vx============"<<Vx<<std::endl;
 			//std::cout<<"===============last_Vy============"<<Vy<<std::endl;
-			std::cout << "===============last_W============" << W_rw << std::endl;
+			// std::cout << "===============last_W============" << W_rw << std::endl;
 		}
 		// 		std::cout<<"===============trafficGO_recv.id============"<<trafficGO_recv.id<<std::endl;
 		// 		std::cout<<"===============trafficGO_recv.GO============"<<trafficGO_recv.GO<<std::endl;
@@ -2737,7 +2737,7 @@ void test_package::ObsStateMachine(std::vector<Eigen::Vector3f> &i_obs_region_0,
 			isAvoidObs = false;
 			cnt = 0;
 
-			std::cout << "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG" << std::endl;
+			std::cout << "cnt = 0" << std::endl;
 		}
 		else if (avoid_way < 0 &&
 				 i_obs_region_0.size() < obs_num_limit &&
@@ -2797,7 +2797,7 @@ void test_package::ObsStateMachine(std::vector<Eigen::Vector3f> &i_obs_region_0,
 				 i_obs_region_4.size() < obs_num_limit)
 		{
 			isFindObs = false;
-			std::cout << "GGGGGGGGGGG" << std::endl;
+			std::cout << "isFindObs = false" << std::endl;
 		}
 	}
 }
@@ -3118,7 +3118,7 @@ void test_package::RePlanning(int &subpath_index,
 			isFInish = false;
 			if (isFindObs)
 			{
-				std::cout << "========================test" << std::endl;
+				std::cout << "======================== isFindObs" << std::endl;
 				isInitial_rot = true;
 				isFindObs = false;
 
