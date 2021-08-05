@@ -4185,16 +4185,23 @@ void test_package::joystickCallback(const move_robot::joystick &joystick)
 	if (PUSE_BUTTON_RB != joystick.btn_id && PUSE_BUTTON_START != joystick.btn_id)
 		btn_id = joystick.btn_id;
 	
+
 	std::cout << "joystick.x  "<< joystick.x << std::endl;
 	std::cout << "joystick.y  "<< joystick.y << std::endl;
-	if(fabs(joystick.x) < 0.2)
-		joystick.x = 0;
-	if(fabs(joystick.y) < 0.2)
-		joystick.y = 0;
-	std::cout << "fabs joystick.x  "<< joystick.x << std::endl;
-	std::cout << "fabs joystick.y  "<< joystick.y << std::endl;
-	float vx = joystick.x * JOYSTICK_SCALAR;
-	float vy = joystick.y * JOYSTICK_SCALAR;
+
+	float joyX = joystick.x;
+	float joyY = joystick.y;
+
+	if(fabs(joyX) < 0.2)
+		joyX = 0;
+	if(fabs(joyY) < 0.2)
+		joyY = 0;
+		
+	std::cout << "fabs joyX  "<< joyX << std::endl;
+	std::cout << "fabs joyY  "<< joyY << std::endl;
+
+	float vx = joyX * JOYSTICK_SCALAR;
+	float vy = joyY * JOYSTICK_SCALAR;
 
 	joystick_v = sqrt(pow(vy, 2) + pow(vx, 2));
 
