@@ -415,6 +415,9 @@ protected:
 	float traffic_dis;
 	float reMission_time;
 
+    //kevin changeMap_time
+    int changeMap_time;
+
     float Car_Side;
 
 
@@ -584,6 +587,9 @@ Move_Robot::Move_Robot(char *dev_name, int Baudrate)
     OBS_Theta_Sec = 0.0;
     traffic_dis = 0.0;
     reMission_time = 0.0;
+
+    //kevin changeMap_time
+    changeMap_time = 0;
 
     LoadCarParameter(CarParameterPATH);
 
@@ -951,6 +957,11 @@ void Move_Robot::LoadCarParameter(std::string file_buf)
         std::getline(fin, s_reMission_time);
         reMission_time = std::atof(s_reMission_time.c_str());
 
+        // kevin changeMap_time
+        std::string s_changeMap_time;
+        std::getline(fin, s_changeMap_time);
+        std::getline(fin, s_changeMap_time);
+        changeMap_time = std::atof(s_changeMap_time.c_str());
 
 
         CarLength_helf = CarLength/2.0;
@@ -2175,7 +2186,7 @@ void Move_Robot::Misson_state(bool isReSet)
 					if(changemap_finish)
 					{
 							change_map_count++;
-							if(change_map_count == 50) //kecvin
+							if(change_map_count >= changeMap_time) //kevin changeMap_time
 							{
 									p_state_ = P_STATE_MOVE;
 									send_changemap = false;
