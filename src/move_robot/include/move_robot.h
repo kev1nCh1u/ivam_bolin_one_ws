@@ -2175,7 +2175,7 @@ void Move_Robot::Misson_state(bool isReSet)
 					if(changemap_finish)
 					{
 							change_map_count++;
-							if(change_map_count == 25)
+							if(change_map_count == 50) //kecvin
 							{
 									p_state_ = P_STATE_MOVE;
 									send_changemap = false;

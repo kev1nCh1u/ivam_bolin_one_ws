@@ -760,7 +760,7 @@ void HectorMappingRos::scanCallback(const sensor_msgs::LaserScan& scan)
 								}
 								//std::cout<<"send Finish Position Initial"<<slamProcessor->ProbMapping<<std::endl;
 								//std::cout<<"mapping rate2 = "<<slamProcessor->ProbMapping<<std::endl;
-								if(slamProcessor->ProbMapping >= 0.4){
+								if(slamProcessor->ProbMapping >= 0.4){ //kecvin
 									ROS_INFO("Finish Position Initial");
 									p_control_state_ = P_SLAM_STATE_RUN;
 									p_Relocation_ = false;
