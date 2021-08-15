@@ -1275,6 +1275,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 	float cmd_angular_velocity = 0.0;
 	float V_sub_target = 0.04;
 	float dis_error = 1;
+	int dis_error_count = 0;
 	float angular_error = 1;
 	float compare_angular_error = 1; //freeloading 用來比較要正heading還是負heading
 	float angular_velocity_error = 0;
@@ -1909,9 +1910,14 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			float y_error_robot = x_error * sin(-1 * robot_pos.z()) + y_error * cos(-1 * robot_pos.z());
 			float way_theta = atan2(y_error_robot, x_error_robot);
 
+			pre_dis_error = dis_error; // kevin pre_dis_error
 			dis_error = sqrt(x_error * x_error + y_error * y_error);
 			float dis_p_error = dis_error;
 			float dis_d_error = dis_error - pre_dis_error;
+			if(dis_error > pre_dis_error) // kevin dis_error_count
+			{
+				dis_error_count++;
+			}
 			pre_dis_error = dis_error;
 
 			cmd_velocity = v_kp * dis_p_error + v_kd * dis_d_error;
@@ -1992,7 +1998,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			// Vy = cmd_vy;
 			W_rw = cmd_angular_velocity;
 
-			// kevin
+			// kevin last track
 			if (back_trajectory)
 			{
 				// W_rw = -1 * W_rw;
@@ -2115,7 +2121,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		{
 			// back_final_pose = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint[A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1];
 			// float x_error = fabs(back_final_pose.x() - robot_pos.x());
-			if (confirm_last_diff_angle && dis_error <= 0.05 && !Endangle) // kevin Precision
+			if (confirm_last_diff_angle && (dis_error <= 0.05 || dis_error_count > 3) && !Endangle) // kevin Precision
 			{
 				std::cout << "==============================let endangle true==========================" << std::endl;
 				Endangle = true;
@@ -2123,6 +2129,9 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				W_rw = 0;
 				//Car.four_wheel_Kinematics_rpm(Vx,Vy,W_rw,Rev_odom_t1,Rev_odom_t2,Rev_odom_t3,Rev_odom_t4,rpm,theta);
 				angular_error = 100.0;
+
+				std::cout << "dis_error_count:"	<< dis_error_count 	<< std::endl;
+				dis_error_count = 0;
 			}
 		}
 
