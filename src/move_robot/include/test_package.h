@@ -1004,7 +1004,7 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 				return true;
 		}
 		// kevin return true;
-		if(last_type == 20)
+		if (last_type == 20)
 		{
 			return true;
 		}
@@ -1390,13 +1390,13 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		//查找目前所應追尋的點
 		//////////////////////////
 		// kevin
-		if(!back_trajectory)
+		if (!back_trajectory)
 		{
 			target_ind = calc_target_index(robot_pos, Rev_odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
 		}
 		else
 		{
-		    // target_ind = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1;
+			// target_ind = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1;
 			target_ind = calc_back_target_index(robot_pos, Rev_odom_v, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint, now_index);
 		}
 
@@ -1684,7 +1684,9 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 
 		//===交管詢問====
 
-		//===前85% 的導航====
+		/***************************************************************************
+		 * 前85% 的導航
+		 * *************************************************************************/
 		if (now_index < First_tracking)
 		{
 			std::cout << "First_tracking" << std::endl;
@@ -1736,7 +1738,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				//         angular_velocity_kd = 0.1;
 				//     }
 				// }
-				if(back_trajectory) // kevin fuzzy 前85
+				if (back_trajectory) // kevin fuzzy 前85
 				{
 					angular_velocity_kp = 3.0;
 				}
@@ -1878,13 +1880,12 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			// std::cout<<"V_sub_target "<<V_sub_target<<std::endl;
 			// std::cout<<"Vx "<<Vx<<std::endl;
 			// std::cout<<"Vy "<<Vy<<std::endl;
-
-		} //===前85% 的導航====
-		//===要進站====
+		}
+		/*****************************************************************************
+		 * 後85% 要進站
+		 * ***************************************************************************/
 		else
 		{
-
-			////////////////////////////////////////////////////////////////////////////////////////
 			std::cout << "=======Last_tracking========" << std::endl;
 			robot_pos = slam_pose_;
 			if (type == MISSON_traffic || type == MISSON_Virtual_traffic || type == MISSON_ChangeMode)
@@ -1992,7 +1993,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			W_rw = cmd_angular_velocity;
 
 			// kevin
-			if(back_trajectory)
+			if (back_trajectory)
 			{
 				// W_rw = -1 * W_rw;
 				W_rw = 0;
@@ -2001,9 +2002,9 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			//Car.four_wheel_Kinematics_rpm(Vx,Vy,W_rw,Rev_odom_t1,Rev_odom_t2,Rev_odom_t3,Rev_odom_t4,rpm,theta);
 
 			v_buf = cmd_velocity;
-			//std::cout<<"===============last_Vx============"<<Vx<<std::endl;
-			//std::cout<<"===============last_Vy============"<<Vy<<std::endl;
-			// std::cout << "===============last_W============" << W_rw << std::endl;
+			//std::cout <<"===============last_Vx============"<<Vx<<std::endl;
+			//std::cout <<"===============last_Vy============"<<Vy<<std::endl;
+			//std::cout << "===============last_W============" << W_rw << std::endl;
 		}
 		// 		std::cout<<"===============trafficGO_recv.id============"<<trafficGO_recv.id<<std::endl;
 		// 		std::cout<<"===============trafficGO_recv.GO============"<<trafficGO_recv.GO<<std::endl;
@@ -2114,7 +2115,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		{
 			// back_final_pose = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint[A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1];
 			// float x_error = fabs(back_final_pose.x() - robot_pos.x());
-			if (confirm_last_diff_angle && dis_error <= 0.05 && !Endangle)  // kevin Precision
+			if (confirm_last_diff_angle && dis_error <= 0.05 && !Endangle) // kevin Precision
 			{
 				std::cout << "==============================let endangle true==========================" << std::endl;
 				Endangle = true;
@@ -4184,21 +4185,20 @@ void test_package::joystickCallback(const move_robot::joystick &joystick)
 
 	if (PUSE_BUTTON_RB != joystick.btn_id && PUSE_BUTTON_START != joystick.btn_id)
 		btn_id = joystick.btn_id;
-	
 
-	std::cout << "joystick.x  "<< joystick.x << std::endl;
-	std::cout << "joystick.y  "<< joystick.y << std::endl;
+	std::cout << "joystick.x  " << joystick.x << std::endl;
+	std::cout << "joystick.y  " << joystick.y << std::endl;
 
 	float joyX = joystick.x;
 	float joyY = joystick.y;
 
-	if(fabs(joyX) < 0.2)
+	if (fabs(joyX) < 0.2)
 		joyX = 0;
-	if(fabs(joyY) < 0.2)
+	if (fabs(joyY) < 0.2)
 		joyY = 0;
-		
-	std::cout << "fabs joyX  "<< joyX << std::endl;
-	std::cout << "fabs joyY  "<< joyY << std::endl;
+
+	std::cout << "fabs joyX  " << joyX << std::endl;
+	std::cout << "fabs joyY  " << joyY << std::endl;
 
 	float vx = joyX * JOYSTICK_SCALAR;
 	float vy = joyY * JOYSTICK_SCALAR;
@@ -4502,9 +4502,9 @@ void test_package::Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, fl
 	float compare_stop_angle = 1;
 
 	// kevin
-	if(back_trajectory)
+	if (back_trajectory)
 	{
-		angular_kp =  3.0;
+		angular_kp = 3.0;
 	}
 
 	if (special == 0) //一般模式（導航）
