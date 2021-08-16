@@ -1910,7 +1910,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			float y_error_robot = x_error * sin(-1 * robot_pos.z()) + y_error * cos(-1 * robot_pos.z());
 			float way_theta = atan2(y_error_robot, x_error_robot);
 
-			pre_dis_error = dis_error; // kevin pre_dis_error
+			// pre_dis_error = dis_error; // kevin pre_dis_error
 			dis_error = sqrt(x_error * x_error + y_error * y_error);
 			float dis_p_error = dis_error;
 			float dis_d_error = dis_error - pre_dis_error;
@@ -2121,7 +2121,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		{
 			// back_final_pose = A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint[A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint.size() - 1];
 			// float x_error = fabs(back_final_pose.x() - robot_pos.x());
-			if (confirm_last_diff_angle && (dis_error <= 0.05 || dis_error_count > 3) && !Endangle) // kevin Precision
+			if (confirm_last_diff_angle && (dis_error <= 0.05 || dis_error_count > 10) && !Endangle) // kevin Precision
 			{
 				std::cout << "==============================let endangle true==========================" << std::endl;
 				Endangle = true;
