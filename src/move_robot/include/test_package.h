@@ -2228,7 +2228,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		//        ROS_INFO("now_index: %d", now_index);
 		//        ROS_INFO("target_ind: %d", target_ind);
 		//        ROS_INFO("---------------");
-		//        ROS_INFO("Robot pose x: %f y: %f yaw: %f", slam_pose_[0], slam_pose_[1], slam_pose_[2]);
+		       ROS_INFO("pose x: %f y: %f yaw: %f", slam_pose_[0], slam_pose_[1], slam_pose_[2]);
 		//        ROS_INFO("---------------");
 		// ROS_INFO("Vx: %f", Vx);
 		// ROS_INFO("Vy: %f", Vy);
