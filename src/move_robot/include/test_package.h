@@ -2041,7 +2041,8 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				W_rw = cmd_angular_velocity;
 				V_rv = 0;
 				std::cout << "MISSON_back_tracking angular_error = " << angular_error << std::endl;
-				if (fabs(angular_error) <= 0.1 || fabs(3.14 - fabs(angular_error)) <= 0.1)
+				// if (fabs(angular_error) <= 0.1 || fabs(3.14 - fabs(angular_error)) <= 0.1)
+				if (fabs(angular_error) <= 0.005 || fabs(3.14 - fabs(angular_error)) <= 0.005) // kevin last_degree
 				{
 					isFInish = true;
 				}
