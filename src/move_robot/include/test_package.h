@@ -2042,14 +2042,16 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				V_rv = 0;
 				std::cout << "MISSON_back_tracking angular_error = " << angular_error << std::endl;
 				// if (fabs(angular_error) <= 0.1 || fabs(3.14 - fabs(angular_error)) <= 0.1)
-				if (fabs(angular_error) <= 0.005 || fabs(3.14 - fabs(angular_error)) <= 0.005) // kevin last_degree
+				if (fabs(angular_error) <= 0.05 || fabs(3.14 - fabs(angular_error)) <= 0.05) // kevin last_degree
 				{
 					isFInish = true;
+					std::cout << "fabs(angular_error) <=  || fabs(3.14 - fabs(angular_error)) <= ,isFInish" << std::endl;
 				}
 			}
 			else
 			{
 				isFInish = true;
+				// std::cout << "Endangle else ,isFInish" << std::endl;
 			}
 
 			// int id_ = A_misson[ready_path_index].sub_missonPath[subpath_index].end;
@@ -2142,6 +2144,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 			cmd_velocity = 0;
 			W_rw = 0;
 			//Car.four_wheel_Kinematics_rpm(Vx,Vy,W_rw,Rev_odom_t1,Rev_odom_t2,Rev_odom_t3,Rev_odom_t4,rpm,theta);
+			// std::cout << "Endangle == true && fabs(angular_error) <= ,isFInish" << std::endl;
 		}
 
 		if (isInitial)
