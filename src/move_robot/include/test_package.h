@@ -2034,9 +2034,9 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				else if (fabs(cmd_angular_velocity) <= 0.05)
 				{
 					if (cmd_angular_velocity > 0)
-						cmd_angular_velocity = 0.05;
+						cmd_angular_velocity = 0.01;
 					else
-						cmd_angular_velocity = -1 * 0.05;
+						cmd_angular_velocity = -1 * 0.01;
 				}
 				W_rw = cmd_angular_velocity;
 				V_rv = 0;
