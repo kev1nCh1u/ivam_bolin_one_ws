@@ -2021,11 +2021,30 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		{
 			if (last_type == MISSON_back_tracking || back_trajectory)
 			{
-				std::cout << " ######## Endangle last_type == MISSON_back_tracking ########" << std::endl;
-				Caculate_W_rw(target_pos.z(), robot_pos, angular_error, pre_angular_error, cmd_angular_velocity, 1);
+				std::cout << "============Endangle last_type == MISSON_back_tracking===============" << std::endl;
+				// Caculate_W_rw(target_pos.z(), robot_pos, angular_error, pre_angular_error, cmd_angular_velocity, 1);
+
+				//kevin last_degree
+				angular_error = target_pos.z() - robot_pos.z();
+				std::cout << "target_pos.z = " << target_pos.z() << std::endl;
+				if (fabs(angular_error) > M_PI)
+				{
+					if (angular_error > 0)
+						angular_error = angular_error - 2 * M_PI;
+					else
+						angular_error = angular_error + 2 * M_PI;
+				}
+				std::cout << "angular_error = " << angular_error << std::endl;
+				float kevin_angular_error = 0.0;
+				if(fabs(angular_error) < fabs(3.14 - fabs(angular_error)))
+					kevin_angular_error = fabs(angular_error);
+				else
+					kevin_angular_error = fabs(3.14 - fabs(angular_error));
+				std::cout << "kevin_angular_error = " << kevin_angular_error << std::endl;
+				
 				//protect
 				// if (fabs(cmd_angular_velocity) >= 1)
-				if(fabs(angular_error) >= 1 || fabs(3.14 - fabs(angular_error)) >= 1)
+				if(kevin_angular_error >= 1)
 				{
 					if (cmd_angular_velocity > 0)
 						cmd_angular_velocity = 0.1;
@@ -2036,15 +2055,15 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				else
 				{
 					if (cmd_angular_velocity > 0)
-						cmd_angular_velocity = 0.005;
+						cmd_angular_velocity = 0.01;
 					else
-						cmd_angular_velocity = -1 * 0.005;
+						cmd_angular_velocity = -1 * 0.01;
 				}
 				W_rw = cmd_angular_velocity;
 				V_rv = 0;
 				std::cout << "MISSON_back_tracking angular_error = " << angular_error << std::endl;
 				// if (fabs(angular_error) <= 0.1 || fabs(3.14 - fabs(angular_error)) <= 0.1)
-				if (fabs(angular_error) <= 0.005 || fabs(3.14 - fabs(angular_error)) <= 0.005) // kevin last_degree
+				if (fabs(angular_error) <= 0.003 || fabs(3.14 - fabs(angular_error)) <= 0.003) // kevin last_degree
 				{
 					isFInish = true;
 					std::cout << "fabs(angular_error) <=  || fabs(3.14 - fabs(angular_error)) <= ,isFInish" << std::endl;
@@ -4546,6 +4565,12 @@ void test_package::Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, fl
 	}
 	else if (special == 1) //一般模式（進站）
 	{
+		// kevin
+		if (back_trajectory)
+		{
+			angular_kp = 1.0;
+		}
+
 		angular_error = stop_angle - robot_pos.z();
 		if (fabs(angular_error) > M_PI)
 		{
