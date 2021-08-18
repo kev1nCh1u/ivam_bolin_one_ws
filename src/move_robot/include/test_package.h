@@ -2021,17 +2021,19 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		{
 			if (last_type == MISSON_back_tracking || back_trajectory)
 			{
-				std::cout << "last_type == MISSON_back_tracking" << std::endl;
+				std::cout << " ######## Endangle last_type == MISSON_back_tracking ########" << std::endl;
 				Caculate_W_rw(target_pos.z(), robot_pos, angular_error, pre_angular_error, cmd_angular_velocity, 1);
 				//protect
-				if (fabs(cmd_angular_velocity) >= 0.3)
+				// if (fabs(cmd_angular_velocity) >= 1)
+				if(fabs(angular_error) >= 1 || fabs(3.14 - fabs(angular_error)) >= 1)
 				{
 					if (cmd_angular_velocity > 0)
-						cmd_angular_velocity = 0.3;
+						cmd_angular_velocity = 0.1;
 					else
-						cmd_angular_velocity = -1 * 0.3;
+						cmd_angular_velocity = -1 * 0.1;
 				}
-				else if (fabs(cmd_angular_velocity) <= 0.05)
+				// else if (fabs(cmd_angular_velocity) <= 0.05)
+				else
 				{
 					if (cmd_angular_velocity > 0)
 						cmd_angular_velocity = 0.005;
@@ -2042,7 +2044,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				V_rv = 0;
 				std::cout << "MISSON_back_tracking angular_error = " << angular_error << std::endl;
 				// if (fabs(angular_error) <= 0.1 || fabs(3.14 - fabs(angular_error)) <= 0.1)
-				if (fabs(angular_error) <= 0.01 || fabs(3.14 - fabs(angular_error)) <= 0.01) // kevin last_degree
+				if (fabs(angular_error) <= 0.005 || fabs(3.14 - fabs(angular_error)) <= 0.005) // kevin last_degree
 				{
 					isFInish = true;
 					std::cout << "fabs(angular_error) <=  || fabs(3.14 - fabs(angular_error)) <= ,isFInish" << std::endl;
