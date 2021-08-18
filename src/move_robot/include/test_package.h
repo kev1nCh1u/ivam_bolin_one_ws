@@ -2047,7 +2047,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				// if (fabs(cmd_angular_velocity) >= 1)
 				if(kevin_angular_error >= 1)
 				{
-					if (cmd_angular_velocity > 0)
+					if (kevin_angular_error > 0)
 						cmd_angular_velocity = 0.1;
 					else
 						cmd_angular_velocity = -1 * 0.1;
@@ -2055,10 +2055,10 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				// else if (fabs(cmd_angular_velocity) <= 0.05)
 				else
 				{
-					if (cmd_angular_velocity > 0)
-						cmd_angular_velocity = 0.05;
+					if (kevin_angular_error > 0)
+						cmd_angular_velocity = 0.02;
 					else
-						cmd_angular_velocity = -1 * 0.05;
+						cmd_angular_velocity = -1 * 0.02;
 				}
 				W_rw = cmd_angular_velocity;
 				V_rv = 0;
