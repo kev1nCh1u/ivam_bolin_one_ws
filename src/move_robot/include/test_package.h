@@ -2027,6 +2027,7 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				//kevin last_degree
 				angular_error = target_pos.z() - robot_pos.z();
 				std::cout << "target_pos.z = " << target_pos.z() << std::endl;
+				std::cout << "robot_pos.z = " << robot_pos.z() << std::endl;
 				if (fabs(angular_error) > M_PI)
 				{
 					if (angular_error > 0)
