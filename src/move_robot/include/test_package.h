@@ -2034,15 +2034,15 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 				else if (fabs(cmd_angular_velocity) <= 0.05)
 				{
 					if (cmd_angular_velocity > 0)
-						cmd_angular_velocity = 0.01;
+						cmd_angular_velocity = 0.005;
 					else
-						cmd_angular_velocity = -1 * 0.01;
+						cmd_angular_velocity = -1 * 0.005;
 				}
 				W_rw = cmd_angular_velocity;
 				V_rv = 0;
 				std::cout << "MISSON_back_tracking angular_error = " << angular_error << std::endl;
 				// if (fabs(angular_error) <= 0.1 || fabs(3.14 - fabs(angular_error)) <= 0.1)
-				if (fabs(angular_error) <= 0.05 || fabs(3.14 - fabs(angular_error)) <= 0.05) // kevin last_degree
+				if (fabs(angular_error) <= 0.01 || fabs(3.14 - fabs(angular_error)) <= 0.01) // kevin last_degree
 				{
 					isFInish = true;
 					std::cout << "fabs(angular_error) <=  || fabs(3.14 - fabs(angular_error)) <= ,isFInish" << std::endl;
@@ -4534,7 +4534,7 @@ void test_package::Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, fl
 		float angular_p_error = angular_error;
 		float angular_d_error = angular_error - pre_angular_error;
 		pre_angular_error = angular_error;
-		std::cout << "angular_error ================= " << angular_error << std::endl;
+		std::cout << "special == 0 angular_error = " << angular_error << std::endl;
 		// if(back_trajectory)
 		// {
 		//     angular_kp = 0.1;
@@ -4560,6 +4560,7 @@ void test_package::Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, fl
 		float angular_p_error = angular_error;
 		float angular_d_error = angular_error - pre_angular_error;
 		pre_angular_error = angular_error;
+		std::cout << "special == 1 angular_error = " << angular_error << std::endl;
 		cmd_angular_velocity = angular_kp * angular_p_error + angular_kd * angular_d_error;
 	}
 	else if (special == 2) //特殊模式（導航）
