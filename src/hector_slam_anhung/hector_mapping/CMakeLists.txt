@@ -7,7 +7,13 @@ project(hector_mapping)
 find_package(catkin REQUIRED COMPONENTS roscpp nav_msgs visualization_msgs tf message_filters laser_geometry tf_conversions message_generation roslib)
 
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED COMPONENTS thread signals)
+# find_package(Boost REQUIRED COMPONENTS thread signals)
+
+# kevin Boost
+find_package(Boost COMPONENTS thread signals)
+if(NOT Boost_FOUND)
+  set(Boost_INCLUDE_DIRS /usr/include/boost)
+endif()
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Find SDL library

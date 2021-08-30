@@ -97,12 +97,21 @@ Control::Control(char *address, char *SRV_IP, int port)
 	char *imagePATH_buf = const_cast<char *>(imagePATH.c_str());
 
 	Mapname = Lc_par.map_name;
+
+#ifdef QT_FLAG
 	QImage map_image;
 	map_image = QImage(imagePATH_buf);
 
 
 	max_map_width = map_image.width();
 	max_map_height = map_image.height();
+#endif
+
+#ifndef QT_FLAG
+	max_map_width = 0;
+	max_map_height = 0;
+#endif
+
 	m_resolution = float(50.0)/1000;
 	Eigen::Vector2f StartCoord(float(max_map_width)*0.50*m_resolution , float(max_map_height)*0.50*m_resolution);
 	setMapTransformation(StartCoord, m_resolution);
@@ -2329,14 +2338,18 @@ void Control::LoadTitlePath()
 	std::string recv_pkg[100];
 
 	int count=0;
-	std::stringstream cut(NOWPath);
-	while(getline(cut,PATH_par,'/'))
-	{
-		recv_pkg[count]=PATH_par;
-		count++;
-	}
+    std::stringstream cut(NOWPath);
+    while(getline(cut,PATH_par,'/'))
+    {
+        recv_pkg[count]=PATH_par;
+        count++;
+    }
 
-	TitlePath = "/" + recv_pkg[1] + "/" + recv_pkg[2] + "/" + recv_pkg[3];
+	// TitlePath = "/" + recv_pkg[1] + "/" + recv_pkg[2] + "/" + recv_pkg[3];
+    for(int i=1; i<count-2; i++){ // kevin
+        TitlePath += "/" + recv_pkg[i];
+    }
+	
 	std::cout<<"TitlePath  " <<TitlePath <<std::endl;
 
 }
