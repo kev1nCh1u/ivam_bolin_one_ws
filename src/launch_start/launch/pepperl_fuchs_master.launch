@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+<param name="/use_sim_time" value="false"/>
+
+<node name="pepperl_fuchs_master" pkg="pepperl_fuchs_r2000" type="r2000_node"
+  args="192.168.10.100" output="screen"/>
+
+</launch>

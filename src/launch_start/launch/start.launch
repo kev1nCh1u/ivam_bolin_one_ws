@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<launch>
+<param name="/use_sim_time" value="false"/>
+
+<include file="$(find JoyStick)/launch/joystick_noout.launch"/>
+<include file="$(find move_robot)/launch/move_robot.launch"/>
+<include file="$(find pepperl_fuchs_r2000)/launch/pepperl_fuchs_master_noout.launch"/>
+<include file="$(find AnhungControl)/launch/anhung_control_noout.launch"/>
+
+
+</launch>

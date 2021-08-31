@@ -122,7 +122,7 @@ void LoadTitlePath()
         count++;
     }
 
-	TitlePath = "/" + recv_pkg[1] + "/" + recv_pkg[2] + "/" + recv_pkg[3];
+	TitlePath = "/" + recv_pkg[1] + "/" + recv_pkg[2] + "/" + recv_pkg[3] + "/" + recv_pkg[4];
 	std::cout<<"TitlePath  " <<TitlePath <<std::endl;
 
 }
