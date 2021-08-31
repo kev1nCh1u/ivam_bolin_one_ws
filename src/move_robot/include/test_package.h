@@ -913,6 +913,16 @@ void test_package::Idle()
 	// 		0, theta[2],
 	// 		command);
 
+	// kevin cmd
+	geometry_msgs::Twist cmd_vel_msg;
+	cmd_vel_msg.linear.x = 0;
+	cmd_vel_msg.linear.y = 0;
+	cmd_vel_msg.linear.z = 0;
+	cmd_vel_msg.angular.x = 0;
+	cmd_vel_msg.angular.y = 0;
+	cmd_vel_msg.angular.z = 0;
+	cmd_vel_pub.publish(cmd_vel_msg);
+
 	SendPackage(command);
 }
 
