@@ -5,6 +5,8 @@ public:
 	~test_package();
 	ros::Subscriber Clear_ObsModeSubscriber_;
 
+	ros::Publisher cmd_vel_pub; // kevin cmd
+
 	//Timer & Thread & SERIAL
 	//void timerCallback(const ros::TimerEvent& event);
 	void RevProcess(double receive_period);
@@ -137,6 +139,7 @@ test_package::test_package(char *dev_name, int Baudrate) : Move_Robot(dev_name, 
 	TriggerSubscriber_ = node_.subscribe("Trigger", 5, &test_package::TriggerCallback_all, this);
 	qrcodeSubscriber_ = node_.subscribe("qrcode", 5, &test_package::qrcodeCallback, this);
 	commandSubscriber_ = node_.subscribe("Command", 5, &test_package::commandCallback, this);
+	cmd_vel_pub = node_.advertise<geometry_msgs::Twist>("cmd_vel", 1000); // kevin cmd
 
 	//receive_Battery_thread_ = new boost::thread(boost::bind(&test_package::RevProcess_Battery, this, 0.1));
 	receive_thread_ = new boost::thread(boost::bind(&test_package::RevProcess, this, 0.01));
@@ -1183,6 +1186,16 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 		// 		rpm[2], theta[2],
 		// 		command
 		// 		);
+
+		// kevin cmd
+		geometry_msgs::Twist cmd_vel_msg;
+		cmd_vel_msg.linear.x = V_rv;
+		cmd_vel_msg.linear.y = 0;
+		cmd_vel_msg.linear.z = 0;
+		cmd_vel_msg.angular.x = 0;
+		cmd_vel_msg.angular.y = 0;
+		cmd_vel_msg.angular.z = W_rw;
+		cmd_vel_pub.publish(cmd_vel_msg);
 
 		SendPackage(command);
 
@@ -2245,6 +2258,16 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		// 		rpm[2], theta[2],
 		// 		command
 		// 		);
+
+		// kevin cmd
+		geometry_msgs::Twist cmd_vel_msg;
+		cmd_vel_msg.linear.x = V_rv;
+		cmd_vel_msg.linear.y = 0;
+		cmd_vel_msg.linear.z = 0;
+		cmd_vel_msg.angular.x = 0;
+		cmd_vel_msg.angular.y = 0;
+		cmd_vel_msg.angular.z = W_rw;
+		cmd_vel_pub.publish(cmd_vel_msg);
 
 		SendPackage(command);
 
@@ -4221,8 +4244,8 @@ void test_package::joystickCallback(const move_robot::joystick &joystick)
 	if (PUSE_BUTTON_RB != joystick.btn_id && PUSE_BUTTON_START != joystick.btn_id)
 		btn_id = joystick.btn_id;
 
-	std::cout << "joystick.x  " << joystick.x << std::endl;
-	std::cout << "joystick.y  " << joystick.y << std::endl;
+	// std::cout << "joystick.x  " << joystick.x << std::endl;
+	// std::cout << "joystick.y  " << joystick.y << std::endl;
 
 	float joyX = joystick.x;
 	float joyY = joystick.y;
@@ -4232,8 +4255,8 @@ void test_package::joystickCallback(const move_robot::joystick &joystick)
 	if (fabs(joyY) < 0.2)
 		joyY = 0;
 
-	std::cout << "fabs joyX  " << joyX << std::endl;
-	std::cout << "fabs joyY  " << joyY << std::endl;
+	// std::cout << "fabs joyX  " << joyX << std::endl;
+	// std::cout << "fabs joyY  " << joyY << std::endl;
 
 	float vx = joyX * JOYSTICK_SCALAR;
 	float vy = joyY * JOYSTICK_SCALAR;
@@ -4304,6 +4327,16 @@ void test_package::joystick_move()
 		//std::cout<<"Vx "<<Vx<<std::endl;
 
 		//Car.four_wheel_Kinematics_rpm(Vx,Vy,W_rw,Rev_odom_t1,Rev_odom_t2,Rev_odom_t3,Rev_odom_t4,rpm,theta);
+
+		// kevin cmd
+		geometry_msgs::Twist cmd_vel_msg;
+		cmd_vel_msg.linear.x = V_avg;
+		cmd_vel_msg.linear.y = 0;
+		cmd_vel_msg.linear.z = 0;
+		cmd_vel_msg.angular.x = 0;
+		cmd_vel_msg.angular.y = 0;
+		cmd_vel_msg.angular.z = W_rw;
+		cmd_vel_pub.publish(cmd_vel_msg);
 
 		std::vector<unsigned char> command;
 		sendreceive.Package_testWheel_encoder(V, 0, W_rw, 0, command);
