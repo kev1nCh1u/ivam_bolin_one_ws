@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-
-<launch>
-<param name="/use_sim_time" value="false"/>
-
-<node name="joystick" pkg="JoyStick" type="joystick"
-  args="/dev/input/js0"/>
-
-</launch>

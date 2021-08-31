@@ -185,7 +185,7 @@ void test_package::TriggerCallback_all(const std_msgs::Int8 &msg)
 void test_package::timerCallback(const ros::TimerEvent &event)
 {
 	//std::cout<<"Rev_V = "<<Rev_odom_onewheel_v<<" "<<" Rev_W =  "<<Rev_odom_onewheel_th<<std::endl;
-	//std::cout<<"slam_pose_==================="<<slam_pose_<<std::endl;
+	std::cout << "slam_pose_ = " << slam_pose_.x() << " " << slam_pose_.y() << " " << slam_pose_.z() << std::endl;
 	static bool LaserMiss_send = false;
 	Calculate_odom();
 
