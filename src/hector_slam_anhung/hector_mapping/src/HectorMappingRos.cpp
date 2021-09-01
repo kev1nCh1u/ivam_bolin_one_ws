@@ -1952,7 +1952,7 @@ void HectorMappingRos::LoadTitlePath()
 	}
 
 	// TitlePath = "/" + recv_pkg[1] + "/" + recv_pkg[2] + "/" + recv_pkg[3];
-    for(int i=1; i<count-2; i++){ // kevin
+    for(int i=1; i<count-3; i++){ // kevin
         TitlePath += "/" + recv_pkg[i];
     }
 
