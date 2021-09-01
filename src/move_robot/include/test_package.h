@@ -78,7 +78,7 @@ public:
 	//切換diff或omni模式 V跟W
 	void Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, float &angular_error, float &pre_angular_error, float &cmd_angular_velocity, int special);
 
-	kevin cmd
+	// kevin cmd
 	void kevin_cmd_vel(double cmd_vx, double cmd_vy, double cmd_w, int type, std::vector<unsigned char> &return_cmd)
 
 private:
@@ -928,14 +928,14 @@ void test_package::Idle()
 	// 		command);
 
 	// kevin cmd
-	geometry_msgs::Twist cmd_vel_msg;
-	cmd_vel_msg.linear.x = 0;
-	cmd_vel_msg.linear.y = 0;
-	cmd_vel_msg.linear.z = 0;
-	cmd_vel_msg.angular.x = 0;
-	cmd_vel_msg.angular.y = 0;
-	cmd_vel_msg.angular.z = 0;
-	cmd_vel_pub.publish(cmd_vel_msg);
+	// geometry_msgs::Twist cmd_vel_msg;
+	// cmd_vel_msg.linear.x = 0;
+	// cmd_vel_msg.linear.y = 0;
+	// cmd_vel_msg.linear.z = 0;
+	// cmd_vel_msg.angular.x = 0;
+	// cmd_vel_msg.angular.y = 0;
+	// cmd_vel_msg.angular.z = 0;
+	// cmd_vel_pub.publish(cmd_vel_msg);
 
 	SendPackage(command);
 }
@@ -1214,14 +1214,14 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 		// 		);
 
 		// kevin cmd
-		geometry_msgs::Twist cmd_vel_msg;
-		cmd_vel_msg.linear.x = V_rv;
-		cmd_vel_msg.linear.y = 0;
-		cmd_vel_msg.linear.z = 0;
-		cmd_vel_msg.angular.x = 0;
-		cmd_vel_msg.angular.y = 0;
-		cmd_vel_msg.angular.z = W_rw;
-		cmd_vel_pub.publish(cmd_vel_msg);
+		// geometry_msgs::Twist cmd_vel_msg;
+		// cmd_vel_msg.linear.x = V_rv;
+		// cmd_vel_msg.linear.y = 0;
+		// cmd_vel_msg.linear.z = 0;
+		// cmd_vel_msg.angular.x = 0;
+		// cmd_vel_msg.angular.y = 0;
+		// cmd_vel_msg.angular.z = W_rw;
+		// cmd_vel_pub.publish(cmd_vel_msg);
 
 		SendPackage(command);
 
@@ -2288,14 +2288,14 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		// 		);
 
 		// kevin cmd
-		geometry_msgs::Twist cmd_vel_msg;
-		cmd_vel_msg.linear.x = V_rv;
-		cmd_vel_msg.linear.y = 0;
-		cmd_vel_msg.linear.z = 0;
-		cmd_vel_msg.angular.x = 0;
-		cmd_vel_msg.angular.y = 0;
-		cmd_vel_msg.angular.z = W_rw;
-		cmd_vel_pub.publish(cmd_vel_msg);
+		// geometry_msgs::Twist cmd_vel_msg;
+		// cmd_vel_msg.linear.x = V_rv;
+		// cmd_vel_msg.linear.y = 0;
+		// cmd_vel_msg.linear.z = 0;
+		// cmd_vel_msg.angular.x = 0;
+		// cmd_vel_msg.angular.y = 0;
+		// cmd_vel_msg.angular.z = W_rw;
+		// cmd_vel_pub.publish(cmd_vel_msg);
 
 		SendPackage(command);
 
@@ -4365,14 +4365,14 @@ void test_package::joystick_move()
 		//Car.four_wheel_Kinematics_rpm(Vx,Vy,W_rw,Rev_odom_t1,Rev_odom_t2,Rev_odom_t3,Rev_odom_t4,rpm,theta);
 
 		// kevin cmd
-		geometry_msgs::Twist cmd_vel_msg;
-		cmd_vel_msg.linear.x = V_avg;
-		cmd_vel_msg.linear.y = 0;
-		cmd_vel_msg.linear.z = 0;
-		cmd_vel_msg.angular.x = 0;
-		cmd_vel_msg.angular.y = 0;
-		cmd_vel_msg.angular.z = W_rw;
-		cmd_vel_pub.publish(cmd_vel_msg);
+		// geometry_msgs::Twist cmd_vel_msg;
+		// cmd_vel_msg.linear.x = V_avg;
+		// cmd_vel_msg.linear.y = 0;
+		// cmd_vel_msg.linear.z = 0;
+		// cmd_vel_msg.angular.x = 0;
+		// cmd_vel_msg.angular.y = 0;
+		// cmd_vel_msg.angular.z = W_rw;
+		// cmd_vel_pub.publish(cmd_vel_msg);
 
 		std::vector<unsigned char> command;
 		// sendreceive.Package_testWheel_encoder(V, 0, W_rw, 0, command);
