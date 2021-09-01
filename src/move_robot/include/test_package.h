@@ -78,6 +78,9 @@ public:
 	//切換diff或omni模式 V跟W
 	void Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, float &angular_error, float &pre_angular_error, float &cmd_angular_velocity, int special);
 
+	kevin cmd
+	void kevin_cmd_vel(double cmd_vx, double cmd_vy, double cmd_w, int type, std::vector<unsigned char> &return_cmd)
+
 private:
 	//encoder
 	float Rev_FR_rpm, Rev_FL_rpm, Rev_RR_rpm, Rev_RL_rpm;
@@ -386,7 +389,8 @@ void test_package::ClearCallback(const std_msgs::Int8 &msg)
 		protect_erase = true;
 		traffic_send = false;
 		std::cout << "Stop Turn" << std::endl;
-		sendreceive.Package_testWheel_encoder(0, 0, 0, 7, command);
+		// sendreceive.Package_testWheel_encoder(0, 0, 0, 7, command);
+		kevin_cmd_vel(0, 0, 0, 7, command);
 		SendPackage(command);
 		qrcode_send = true;
 		back_trajectory = false;
@@ -613,6 +617,7 @@ void test_package::State_Machine(int &state)
 				turn_use_backtra = false;
 				//type19_use = false;
 				// sendreceive.Package_testWheel_encoder(qrcode_x, qrcode_y, qrcode_A, 3, command);
+				// kevin_cmd_vel(qrcode_x, qrcode_y, qrcode_A, 3, command);
 				// SendPackage(command);
 			}
 		}
@@ -620,7 +625,8 @@ void test_package::State_Machine(int &state)
 		{
 			time_delay_counter += 1;
 			std::vector<unsigned char> command;
-			sendreceive.Package_testWheel_encoder(0, 0, 0, 0, command);
+			// sendreceive.Package_testWheel_encoder(0, 0, 0, 0, command);
+			kevin_cmd_vel(0, 0, 0, 0, command);
 			SendPackage(command);
 			std::cout << "time_delay_counter   " << time_delay_counter << std::endl;
 		}
@@ -657,7 +663,8 @@ void test_package::State_Machine(int &state)
 			if (qrcode_send)
 			{
 				ROS_INFO("qrcode relocation!!!\n");
-				sendreceive.Package_testWheel_encoder(qrcode_x, qrcode_y, qrcode_A, 2, command);
+				// sendreceive.Package_testWheel_encoder(qrcode_x, qrcode_y, qrcode_A, 2, command);
+				kevin_cmd_vel(qrcode_x, qrcode_y, qrcode_A, 2, command);
 				SendPackage(command);
 				qrcode_send = false;
 			}
@@ -676,7 +683,8 @@ void test_package::State_Machine(int &state)
 		if (qrcode_send)
 		{
 			ROS_INFO("teensy turn left!!!\n");
-			sendreceive.Package_testWheel_encoder(teensy_turn_time, teensy_turn_R, 0, 3, command);
+			// sendreceive.Package_testWheel_encoder(teensy_turn_time, teensy_turn_R, 0, 3, command);
+			kevin_cmd_vel(teensy_turn_time, teensy_turn_R, 0, 3, command);
 			SendPackage(command);
 			teensy_turn_time = 0.0;
 			teensy_turn_R = 0.0;
@@ -696,7 +704,8 @@ void test_package::State_Machine(int &state)
 		if (qrcode_send)
 		{
 			ROS_INFO("teensy turn right!!!\n");
-			sendreceive.Package_testWheel_encoder(teensy_turn_time, teensy_turn_R, 0, 4, command);
+			// sendreceive.Package_testWheel_encoder(teensy_turn_time, teensy_turn_R, 0, 4, command);
+			kevin_cmd_vel(teensy_turn_time, teensy_turn_R, 0, 4, command);
 			SendPackage(command);
 			teensy_turn_time = 0.0;
 			teensy_turn_R = 0.0;
@@ -716,7 +725,8 @@ void test_package::State_Machine(int &state)
 		if (qrcode_send)
 		{
 			ROS_INFO("teensy turn back left!!!\n");
-			sendreceive.Package_testWheel_encoder(teensy_turn_time, teensy_turn_R, 0, 5, command);
+			// sendreceive.Package_testWheel_encoder(teensy_turn_time, teensy_turn_R, 0, 5, command);
+			kevin_cmd_vel(teensy_turn_time, teensy_turn_R, 0, 5, command);
 			SendPackage(command);
 			teensy_turn_time = 0.0;
 			teensy_turn_R = 0.0;
@@ -736,7 +746,8 @@ void test_package::State_Machine(int &state)
 		if (qrcode_send)
 		{
 			ROS_INFO("teensy turn back right!!!\n");
-			sendreceive.Package_testWheel_encoder(teensy_turn_time, teensy_turn_R, 0, 6, command);
+			// sendreceive.Package_testWheel_encoder(teensy_turn_time, teensy_turn_R, 0, 6, command);
+			kevin_cmd_vel(teensy_turn_time, teensy_turn_R, 0, 6, command);
 			SendPackage(command);
 			teensy_turn_time = 0.0;
 			teensy_turn_R = 0.0;
@@ -778,7 +789,8 @@ void test_package::State_Machine(int &state)
 			else
 				cmd_angular_velocity = -1 * 0.05;
 		}
-		sendreceive.Package_testWheel_encoder(0, 0, cmd_angular_velocity, 0, command);
+		// sendreceive.Package_testWheel_encoder(0, 0, cmd_angular_velocity, 0, command);
+		kevin_cmd_vel(0, 0, cmd_angular_velocity, 0, command);
 		SendPackage(command);
 		std::cout << "turn angle angular_error = " << angular_error << std::endl;
 		if (fabs(angular_error) <= 0.1)
@@ -861,7 +873,8 @@ bool test_package::Navigation_move(std::vector<SUB_MISSONPATH_SUBPOINT> &myAllSu
 						path_index = 0;
 
 						std::vector<unsigned char> command;
-						sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+						// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+						kevin_cmd_vel(0, 0, W_rw, 0, command);
 						//sendreceive.Package_OneWheel_encoder(0, W_rw, command);
 						// sendreceive.Package_AllDir_encoder(0, theta[0],
 						// 		0, theta[1],
@@ -905,7 +918,8 @@ void test_package::Idle()
 
 	Navigation_move(A_misson[ready_path_index].sub_missonPath, true);
 	std::vector<unsigned char> command;
-	sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+	// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+	kevin_cmd_vel(0, 0, W_rw, 0, command);
 	//sendreceive.Package_OneWheel_encoder(0, W_rw, command);
 	// sendreceive.Package_AllDir_encoder(0, theta[0],
 	// 		0, theta[1],
@@ -1182,11 +1196,13 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 		std::vector<unsigned char> command;
 		if (!back_trajectory)
 		{
-			sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			kevin_cmd_vel(0, 0, W_rw, 0, command);
 		}
 		else
 		{
-			sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			kevin_cmd_vel(0, 0, W_rw, 0, command);
 		}
 
 		//sendreceive.Package_OneWheel_encoder(V_rv, W_rw, command);
@@ -2253,13 +2269,15 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 		std::vector<unsigned char> command;
 		if (!back_trajectory)
 		{
-			sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+			// sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+			kevin_cmd_vel(V_rv, 0, W_rw, 0, command);
 		}
 		else
 		{
 			V_rv = -1 * V_rv;
 			W_rw = -1 * W_rw;
-			sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+			// sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+			kevin_cmd_vel(V_rv, 0, W_rw, 0, command);
 		}
 		//sendreceive.Package_OneWheel_encoder(V_rv, W_rw, command);
 		// sendreceive.Package_AllDir_encoder(rpm[0], theta[0],
@@ -3020,7 +3038,8 @@ bool test_package::WaitObsLeave()
 		}
 
 		std::vector<unsigned char> command;
-		sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+		// sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+		kevin_cmd_vel(V_rv, 0, W_rw, 0, command);
 		//sendreceive.Package_OneWheel_encoder(V_rv, W_rw, command);
 		// sendreceive.Package_AllDir_encoder(rpm[0], theta[0],
 		// 		rpm[1], theta[1],
@@ -3209,7 +3228,8 @@ void test_package::RePlanning(int &subpath_index,
 		}
 
 		std::vector<unsigned char> command;
-		sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+		// sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+		kevin_cmd_vel(V_rv, 0, W_rw, 0, command);
 		//sendreceive.Package_OneWheel_encoder(V_rv, W_rw, command);
 		// sendreceive.Package_AllDir_encoder(rpm[0], theta[0],
 		// 		rpm[1], theta[1],
@@ -3960,7 +3980,8 @@ bool test_package::AvoidObs()
 			obs_avoid_flag = false;
 
 			std::vector<unsigned char> command;
-			sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			kevin_cmd_vel(0, 0, W_rw, 0, command);
 			//sendreceive.Package_OneWheel_encoder(0, W_rw, command);
 			// sendreceive.Package_AllDir_encoder(0, theta[0],
 			// 		0, theta[1],
@@ -4083,7 +4104,8 @@ bool test_package::AvoidObs()
 			{
 
 				std::vector<unsigned char> command;
-				sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+				// sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+				kevin_cmd_vel(V_rv, 0, W_rw, 0, command);
 				//sendreceive.Package_OneWheel_encoder(V_rv, W_rw, command);
 				// sendreceive.Package_AllDir_encoder(rpm[0], theta[0],
 				// 		rpm[1], theta[1],
@@ -4098,7 +4120,8 @@ bool test_package::AvoidObs()
 			{
 
 				std::vector<unsigned char> command;
-				sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+				// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+				kevin_cmd_vel(0, 0, W_rw, 0, command);
 				//sendreceive.Package_OneWheel_encoder(0, W_rw, command);
 				// sendreceive.Package_AllDir_encoder(0, theta[0],
 				// 		0, theta[1],
@@ -4111,7 +4134,8 @@ bool test_package::AvoidObs()
 		}
 
 		std::vector<unsigned char> command;
-		sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+		// sendreceive.Package_testWheel_encoder(V_rv, 0, W_rw, 0, command);
+		kevin_cmd_vel(V_rv, 0, W_rw, 0, command);
 		//sendreceive.Package_OneWheel_encoder(V_rv, W_rw, command);
 		// sendreceive.Package_AllDir_encoder(rpm[0], theta[0],
 		// 		rpm[1], theta[1],
@@ -4139,7 +4163,8 @@ bool test_package::AvoidObs()
 
 		std::vector<unsigned char> command;
 
-		sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+		// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+		kevin_cmd_vel(0, 0, W_rw, 0, command);
 		//sendreceive.Package_OneWheel_encoder(0, W_rw, command);
 		// sendreceive.Package_AllDir_encoder(0, theta[0],
 		// 		0, theta[1],
@@ -4223,7 +4248,8 @@ bool test_package::WaitDeadlock()
 	// 		0, theta[2]);
 
 	std::vector<unsigned char> command;
-	sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+	// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+	kevin_cmd_vel(0, 0, W_rw, 0, command);
 	//sendreceive.Package_OneWheel_encoder(0, W_rw, command);
 	// sendreceive.Package_AllDir_encoder(0, theta[0],
 	// 		0, theta[1],
@@ -4349,7 +4375,8 @@ void test_package::joystick_move()
 		cmd_vel_pub.publish(cmd_vel_msg);
 
 		std::vector<unsigned char> command;
-		sendreceive.Package_testWheel_encoder(V, 0, W_rw, 0, command);
+		// sendreceive.Package_testWheel_encoder(V, 0, W_rw, 0, command);
+		kevin_cmd_vel(V, 0, W_rw, 0, command);
 		//sendreceive.Package_OneWheel_encoder(V, W_rw, command);
 		// sendreceive.Package_AllDir_encoder(rpm[0], theta[0],
 		// 		rpm[1], theta[1],
@@ -4368,7 +4395,8 @@ void test_package::joystick_move()
 		ROS_INFO("turn_left");
 		std::vector<unsigned char> command;
 		float turn_left_w = 0.2;
-		sendreceive.Package_testWheel_encoder(0, 0, turn_left_w, 0, command);
+		// sendreceive.Package_testWheel_encoder(0, 0, turn_left_w, 0, command);
+		kevin_cmd_vel(0, 0, turn_left_w, 0, command);
 		SendPackage(command);
 	}
 	else if (btn_id == PUSE_BUTTON_Y)
@@ -4376,14 +4404,16 @@ void test_package::joystick_move()
 		ROS_INFO("turn_right");
 		std::vector<unsigned char> command;
 		float turn_right_w = -0.2;
-		sendreceive.Package_testWheel_encoder(0, 0, turn_right_w, 0, command);
+		// sendreceive.Package_testWheel_encoder(0, 0, turn_right_w, 0, command);
+		kevin_cmd_vel(0, 0, turn_right_w, 0, command);
 		SendPackage(command);
 	}
 	else if (btn_id == PUSE_BUTTON_BACK)
 	{
 		ROS_INFO("Wheel return");
 		std::vector<unsigned char> command;
-		sendreceive.Package_testWheel_encoder(0, 0, 0, 0, command);
+		// sendreceive.Package_testWheel_encoder(0, 0, 0, 0, command);
+		kevin_cmd_vel(0, 0, 0, 0, command);
 		//sendreceive.Package_OneWheel_encoder(0, 0, command);
 		// sendreceive.Package_AllDir_encoder(0, 0,
 		// 			0, 0,
@@ -4544,7 +4574,8 @@ void test_package::Stop()
 			}
 
 			std::vector<unsigned char> command;
-			sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			kevin_cmd_vel(0, 0, W_rw, 0, command);
 			//sendreceive.Package_OneWheel_encoder(0, W_rw, command);
 			// sendreceive.Package_AllDir_encoder(0, theta[0],
 			// 		0, theta[1],
@@ -4558,7 +4589,8 @@ void test_package::Stop()
 		{
 
 			std::vector<unsigned char> command;
-			sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			// sendreceive.Package_testWheel_encoder(0, 0, W_rw, 0, command);
+			kevin_cmd_vel(0, 0, W_rw, 0, command);
 			//sendreceive.Package_OneWheel_encoder(0, W_rw, command);
 			// sendreceive.Package_AllDir_encoder(0, theta[0],
 			// 		0, theta[1],
@@ -4729,4 +4761,19 @@ void test_package::Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, fl
 		pre_angular_error = angular_error;
 		cmd_angular_velocity = angular_kp * angular_p_error + angular_kd * angular_d_error;
 	}
+}
+
+void test_package::kevin_cmd_vel(double cmd_vx, double cmd_vy, double cmd_w, int type, std::vector<unsigned char> &return_cmd)
+{
+	sendreceive.Package_testWheel_encoder(cmd_vx, cmd_vy, cmd_w, type, return_cmd);
+
+	// kevin cmd
+	geometry_msgs::Twist cmd_vel_msg;
+	cmd_vel_msg.linear.x = cmd_vx;
+	cmd_vel_msg.linear.y = 0;
+	cmd_vel_msg.linear.z = 0;
+	cmd_vel_msg.angular.x = 0;
+	cmd_vel_msg.angular.y = 0;
+	cmd_vel_msg.angular.z = cmd_w;
+	cmd_vel_pub.publish(cmd_vel_msg);
 }
