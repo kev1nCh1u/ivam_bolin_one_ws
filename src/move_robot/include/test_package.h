@@ -79,7 +79,7 @@ public:
 	void Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, float &angular_error, float &pre_angular_error, float &cmd_angular_velocity, int special);
 
 	// kevin cmd
-	void kevin_cmd_vel(double cmd_vx, double cmd_vy, double cmd_w, int type, std::vector<unsigned char> &return_cmd)
+	void kevin_cmd_vel(double cmd_vx, double cmd_vy, double cmd_w, int type, std::vector<unsigned char> &return_cmd);
 
 private:
 	//encoder
@@ -224,6 +224,7 @@ void test_package::timerCallback(const ros::TimerEvent &event)
 	else if (!isReveice_joystick)
 	{
 		std::cout << "back_trajectory = " << back_trajectory << std::endl;
+		std::cout << "p_state_ = " << p_state_ << std::endl;
 		//State_Machine(p_state_);
 		LaserMiss += 1;
 
@@ -241,6 +242,7 @@ void test_package::timerCallback(const ros::TimerEvent &event)
 		else if (v_stop)
 		{
 			Stop();
+			std::cout << "########## v_stop" << std::endl;
 		}
 		else
 		{
@@ -422,6 +424,10 @@ void test_package::State_Machine(int &state)
 
 		break;
 	case P_STATE_MISSON:
+		// kevin chamge map cmd 0
+		// sendreceive.Package_testWheel_encoder(0, 0, 0, 0, command);
+        kevin_cmd_vel(0, 0, 0, 0, command);
+
 		Misson_state(false);
 
 		break;
@@ -2299,17 +2305,17 @@ bool test_package::Tracking_Trajectory(int &subpath_index, bool isReSet)
 
 		SendPackage(command);
 
-		//        ROS_INFO("---------------");
-		//        ROS_INFO("odom_v: %f", Rev_odom_v);
-		//        ROS_INFO("now_index: %d", now_index);
-		//        ROS_INFO("target_ind: %d", target_ind);
-		//        ROS_INFO("---------------");
-		       ROS_INFO("pose x: %f y: %f yaw: %f", slam_pose_[0], slam_pose_[1], slam_pose_[2]);
-		//        ROS_INFO("---------------");
+		// ROS_INFO("---------------");
+		// ROS_INFO("odom_v: %f", Rev_odom_v);
+		// ROS_INFO("now_index: %d", now_index);
+		// ROS_INFO("target_ind: %d", target_ind);
+		// ROS_INFO("---------------");
+		// ROS_INFO("pose x: %f y: %f yaw: %f", slam_pose_[0], slam_pose_[1], slam_pose_[2]);
+		// ROS_INFO("---------------");
 		// ROS_INFO("Vx: %f", Vx);
 		// ROS_INFO("Vy: %f", Vy);
-		ROS_INFO("V_rv: %f", V_rv);
-		ROS_INFO("W_rw: %f", W_rw);
+		// ROS_INFO("V_rv: %f", V_rv);
+		// ROS_INFO("W_rw: %f", W_rw);
 
 		if (isFInish)
 		{

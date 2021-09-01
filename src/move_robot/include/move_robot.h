@@ -51,7 +51,6 @@
 
 
 
-
 #define CarParameterPATH_Local "/src/move_robot/parameter/car_parameter"
 #define LocalparPATH_Local "/src/move_robot/parameter/local_parameter"
 
@@ -2158,6 +2157,7 @@ void Move_Robot::Misson_state(bool isReSet)
 
 
         case MISSON_Samefloor_ChangeMap:
+            std::cout<<"========================================================" <<std::endl;
             std::cout<<"MISSON_Samefloor_ChangeMap" <<std::endl;
             Command_STATE = Command_Samefloor_ChangeMap;
 
@@ -2181,11 +2181,15 @@ void Move_Robot::Misson_state(bool isReSet)
 								std::cout<<"==send_changemap==" <<std::endl;
 						}
 						sendreceive.Package_testWheel_encoder(0, 0, 0, 0, command);
+
+                        // kevin_cmd_vel(0, 0, 0, 0, command);
+
 						SendPackage(command);
 
 					if(changemap_finish)
 					{
 							change_map_count++;
+                            std::cout<<"==changemap_finish== " << change_map_count <<std::endl;
 							if(change_map_count >= changeMap_time) //kevin changeMap_time
 							{
 									p_state_ = P_STATE_MOVE;
