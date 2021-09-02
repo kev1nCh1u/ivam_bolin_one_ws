@@ -2570,7 +2570,7 @@ void Move_Robot::draw(int id, float color_r, float color_g, float color_b, std::
 {
     //畫出軌跡再rviz
     visualization_msgs::Marker points;
-    points.header.frame_id = "/map";
+    points.header.frame_id = "map";
     points.header.stamp = ros::Time::now();
     points.ns = "points";
     points.action = visualization_msgs::Marker::ADD;
@@ -2612,7 +2612,7 @@ void Move_Robot::drawLine(int id, float color_r, float color_g, float color_b, s
     //std::cout<<"========drawLine========"<<std::endl;
     //畫出軌跡再rviz
     visualization_msgs::Marker line_strip;
-    line_strip.header.frame_id = "/map";
+    line_strip.header.frame_id = "map";
     line_strip.header.stamp = ros::Time::now();
     line_strip.ns = "lines";
     line_strip.action = visualization_msgs::Marker::ADD;

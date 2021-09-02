@@ -39,7 +39,7 @@ void DummySLAMBroadcaster::broadcastPose(const ros::TimerEvent &e)
     pose.pose.orientation.y = 0;
     pose.pose.orientation.z = 0;
 
-    pose.header.frame_id = "/map";
+    pose.header.frame_id = "map";
     pose.header.stamp = ros::Time::now();
 
     pose_publisher_.publish(pose);
@@ -49,7 +49,7 @@ void DummySLAMBroadcaster::broadcastPose(const ros::TimerEvent &e)
 void DummySLAMBroadcaster::initMap()
 {
     const std::size_t mapSize = 2500;
-    empty_map_.header.frame_id = "/map";
+    empty_map_.header.frame_id = "map";
     empty_map_.info.resolution = 0.04;
     empty_map_.info.width = mapSize;
     empty_map_.info.height = mapSize;
