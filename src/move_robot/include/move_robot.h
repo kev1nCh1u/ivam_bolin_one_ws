@@ -2081,6 +2081,10 @@ void Move_Robot::Misson_state(bool isReSet)
                 send_changemap = true;
 
                 std::cout << "==send_changemap==" << std::endl;
+
+                // kevin change_map_error
+                change_map_count = 0;
+                change_map_error_count = 0;
             }
             sendreceive.Package_testWheel_encoder(0, 0, 0, 0, command);
 
@@ -2098,6 +2102,18 @@ void Move_Robot::Misson_state(bool isReSet)
                     send_changemap = false;
                     changemap_finish = false;
                     change_map_count = 0;
+                }
+            }
+            // kevin change_map_error
+            else
+            {
+                change_map_error_count++;
+                std::cout << "==change_map_error_count== " << change_map_error_count << std::endl;
+                if(change_map_error_count >= 20)
+                {
+                    std::cout << "\033[1;31m resend  changemap !!!! \033[0m\n";
+                    send_changemap = false;
+                    change_map_error_count = 0;
                 }
             }
 
