@@ -1830,6 +1830,7 @@ void Move_Robot::Misson_state(bool isReSet)
 	static int cnt_traffic = 0;
 	static int cnt_virtual_traffic = 0;
 	static int change_map_count = 0;
+    static int change_map_error_count = 0; // kevin change_map_error
 	std::vector<unsigned char> command;
 	if(!isReSet)
 	{
