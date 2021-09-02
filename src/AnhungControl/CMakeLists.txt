@@ -8,7 +8,7 @@ project(AnhungControl)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  # qt_build
+  qt_build
   roscpp
   rospy
   std_msgs
@@ -21,8 +21,10 @@ find_package(catkin REQUIRED COMPONENTS
 
 # kevin qt_build
 find_package(qt_build)
+# find_package(catkin REQUIRED COMPONENTS qt_build)
 if(qt_build_FOUND)
   add_definitions(-DQT_FLAG)
+  find_package(catkin REQUIRED COMPONENTS qt_build)
   rosbuild_prepare_qt4(QtCore QtGui)
 else()
   
@@ -251,15 +253,15 @@ endif()
 add_executable(AnhungControl src/AnhungControl.cpp)
 
 target_link_libraries(AnhungControl
-#  ${QT_LIBRARIES} 
+  ${QT_LIBRARIES} 
   ${catkin_LIBRARIES}
 ${MYSQL_LIBRARIES}
 )
 
 # kevin qt_build_FOUND
-if(qt_build_FOUND)
-  target_link_libraries(AnhungControl ${QT_LIBRARIES})
-endif()
+# if(qt_build_FOUND)
+#   target_link_libraries(AnhungControl ${QT_LIBRARIES})
+# endif()
 
 add_dependencies(AnhungControl AnhungControl)
 
