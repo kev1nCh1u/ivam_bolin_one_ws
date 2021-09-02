@@ -7,7 +7,7 @@ project(AnhungControl)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
+find_package(catkin COMPONENTS
   qt_build
   roscpp
   rospy
@@ -20,14 +20,11 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 # kevin qt_build
-find_package(qt_build)
-# find_package(catkin REQUIRED COMPONENTS qt_build)
 if(qt_build_FOUND)
   add_definitions(-DQT_FLAG)
-  find_package(catkin REQUIRED COMPONENTS qt_build)
   rosbuild_prepare_qt4(QtCore QtGui)
 else()
-  
+
 endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake-modules)
