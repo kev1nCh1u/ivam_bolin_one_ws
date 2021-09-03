@@ -47,7 +47,9 @@ class MapRepMultiMap : public MapRepresentationInterface
 
 public:
   MapRepMultiMap(float mapResolution, int mapSizeX, int mapSizeY, unsigned int numDepth, const Eigen::Vector2f& startCoords, DrawInterface* drawInterfaceIn, HectorDebugInfoInterface* debugInterfaceIn)
-  {
+  { 
+    std::cout<< "start to MapRepMultiMap " <<std::endl;
+
     //unsigned int numDepth = 3;
     Eigen::Vector2i resolution(mapSizeX, mapSizeY);
 
@@ -57,13 +59,22 @@ public:
     float totalMapSizeY = mapResolution * static_cast<float>(mapSizeY);
     float mid_offset_y = totalMapSizeY * startCoords.y();
 
-    std::cout<< "numDepth "<<numDepth<<std::endl;
+    std::cout<< "MapRepMultiMap numDepth "<<numDepth<<std::endl;
+    
+    // kevin clean
+    unsigned int size = mapContainer.size();
+
+    for (unsigned int i = 0; i < size; ++i){
+      mapContainer[i].cleanup();
+    }
+    std::cout << "mapContainer[i].cleanup(); OK " <<std::endl;
+
     for (unsigned int i = 0; i < numDepth; ++i){
-      //std::cout << "HectorSM map lvl " << i << ": cellLength: " << mapResolution << " res x:" << resolution.x() << " res y: " << resolution.y() << "\n";
+      std::cout << "HectorSM map lvl " << i << ": cellLength: " << mapResolution << " res x:" << resolution.x() << " res y: " << resolution.y() << "\n";
       GridMap* gridMap = new hectorslam::GridMap(mapResolution,resolution, Eigen::Vector2f(mid_offset_x, mid_offset_y));
-      //std::cout << "new hectorslam::GridMap OK " <<std::endl;
+      std::cout << "new hectorslam::GridMap OK " <<std::endl;
       OccGridMapUtilConfig<GridMap>* gridMapUtil = new OccGridMapUtilConfig<GridMap>(gridMap);
-      //std::cout << "new OccGridMapUtilConfig OK " <<std::endl;
+      std::cout << "new OccGridMapUtilConfig OK " <<std::endl;
       ScanMatcher<OccGridMapUtilConfig<GridMap> >* scanMatcher = new hectorslam::ScanMatcher<OccGridMapUtilConfig<GridMap> >(drawInterfaceIn, debugInterfaceIn);
       std::cout << "new hectorslam::ScanMatcher OK " <<std::endl;
 
@@ -73,6 +84,8 @@ public:
 
       resolution /= 2;
       mapResolution*=2.0f;
+
+      std::cout << "resolution /= 2 OK " <<std::endl;
     }
 
     //dataContainers.resize(numDepth-1);
@@ -80,24 +93,30 @@ public:
 	dataContainers_1.resize(numDepth-1);
 	dataContainers_2.resize(numDepth-1);
 
+  std::cout << "dataContainers_1.resize(numDepth-1) OK " <<std::endl;
+
   }
 
   virtual ~MapRepMultiMap()
   {
+    std::cout << "~mapContainer[i].cleanup(); " <<std::endl;
     unsigned int size = mapContainer.size();
 
     for (unsigned int i = 0; i < size; ++i){
       mapContainer[i].cleanup();
     }
+    std::cout << "~mapContainer[i].cleanup(); OK" <<std::endl;
   }
 
   virtual void reset()
   {
+    std::cout << "mapContainer[i].reset " <<std::endl;
     unsigned int size = mapContainer.size();
 
     for (unsigned int i = 0; i < size; ++i){
       mapContainer[i].reset();
     }
+    std::cout << "mapContainer[i].reset OK " <<std::endl;
   }
 
   virtual float getScaleToMap() const { return mapContainer[0].getScaleToMap(); };

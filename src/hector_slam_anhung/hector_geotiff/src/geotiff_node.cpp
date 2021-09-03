@@ -121,9 +121,11 @@ public:
 
   ~MapGenerator()
   {
+    std::cout<<"delete plugin_loader_" <<std::endl;
     if (plugin_loader_){
       delete plugin_loader_;
     }
+    std::cout<<"delete plugin_loader_ OK" <<std::endl;
   }
 
   void writeGeotiff()

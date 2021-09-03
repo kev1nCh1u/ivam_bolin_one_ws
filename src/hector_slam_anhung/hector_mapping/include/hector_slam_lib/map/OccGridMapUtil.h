@@ -47,6 +47,8 @@ public:
   {
     std::cout<<"OccGridMapUtil"<<std::endl;
     mapObstacleThreshold = gridMap->getObstacleThreshold();
+    std::cout<<"mapObstacleThreshold OK"<<std::endl;
+    std::cout<<"gridMap->getMapDimensions " << gridMap->getMapDimensions() <<std::endl;
     cacheMethod.setMapSize(gridMap->getMapDimensions());
     std::cout<<"OccGridMapUtil OK"<<std::endl;
   }

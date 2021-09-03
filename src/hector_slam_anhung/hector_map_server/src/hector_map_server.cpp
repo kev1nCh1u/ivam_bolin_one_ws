@@ -302,10 +302,10 @@ class HectorMapServer
 
     ~HectorMapServer()
     {
+      std::cout<<"delete mapContainer" <<std::endl;
       delete mapContainer;
-
-
       delete hector_drawings_;
+      std::cout<<"delete mapContainer OK" <<std::endl;
     }
 
 

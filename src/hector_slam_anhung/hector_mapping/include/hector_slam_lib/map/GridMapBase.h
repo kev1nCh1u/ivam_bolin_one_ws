@@ -76,14 +76,18 @@ public:
    */
   void clear()
   {
-    int size = this->getSizeX() * this->getSizeY();
+    std::cout<<"this->mapArray[i].resetGridCell() "<<std::endl;
+    // int size = this->getSizeX() * this->getSizeY();
+    // std::cout<<"size " << size <<std::endl;
 
-    for (int i = 0; i < size; ++i) {
-      this->mapArray[i].resetGridCell();
-    }
+    // for (int i = 0; i < size; ++i) {
+    //   this->mapArray[i].resetGridCell();
+    //   std::cout<<"mapArray[i].resetGridCell " << i <<std::endl;
+    // }
 
     //this->mapArray[0].set(1.0f);
     //this->mapArray[size-1].set(1.0f);
+    std::cout<<"this->mapArray[i].resetGridCell() OK"<<std::endl;
   }
 
 
@@ -99,6 +103,7 @@ public:
     Eigen::Vector2i newMapDimensions (size);
 
     this->setMapGridSize(newMapDimensions);
+    std::cout<<"GridMapBase setMapGridSize" <<std::endl;
     sizeX = size[0];
 
     setMapTransformation(offset, mapResolution);
@@ -111,7 +116,9 @@ public:
    */
   virtual ~GridMapBase()
   {
+    std::cout<<"deleteArray" <<std::endl;
     deleteArray();
+    std::cout<<"delete mapContainer OK" <<std::endl;
   }
 
   /**
@@ -122,6 +129,8 @@ public:
     int sizeX = newMapDims.x();
     int sizeY = newMapDims.y();
 
+    // delete[] mapArray;
+
     mapArray = new ConcreteCellType [sizeX*sizeY];
 
     mapDimensionProperties.setMapCellDims(newMapDims);
@@ -129,6 +138,7 @@ public:
 
   void deleteArray()
   {
+    std::cout<<"mapArray" <<std::endl;
     if (mapArray != 0){
 
       delete[] mapArray;
@@ -136,6 +146,7 @@ public:
       mapArray = 0;
       mapDimensionProperties.setMapCellDims(Eigen::Vector2i(-1,-1));
     }
+    std::cout<<"mapArray OK" <<std::endl;
   }
 
   ConcreteCellType& getCell(int x, int y)
@@ -160,11 +171,13 @@ public:
 
   void setMapGridSize(const Eigen::Vector2i& newMapDims)
   {
+    std::cout<<"setMapGridSize deleteArray" <<std::endl;
     if (newMapDims != mapDimensionProperties.getMapDimensions() ){
      deleteArray();
      allocateArray(newMapDims);
      this->reset();
     }
+    std::cout<<"setMapGridSize deleteArray OK" <<std::endl;
   }
 
   /**
@@ -184,6 +197,7 @@ public:
     if ( !(this->mapDimensionProperties == other.mapDimensionProperties)){
       this->setMapGridSize(other.mapDimensionProperties.getMapDimensions());
     }
+    std::cout<<"GridMapBase setMapGridSize" <<std::endl;
 
     this->mapDimensionProperties = other.mapDimensionProperties;
 
@@ -249,6 +263,7 @@ public:
     if (!newMapDimProps.hasEqualDimensionProperties(this->mapDimensionProperties)){
       this->setMapGridSize(newMapDimProps.getMapDimensions());
     }
+    std::cout<<"setDimensionProperties setMapGridSize" <<std::endl;
 
     //Grid map transformation/cell size has changed
     if(!newMapDimProps.hasEqualTransformationProperties(this->mapDimensionProperties)){

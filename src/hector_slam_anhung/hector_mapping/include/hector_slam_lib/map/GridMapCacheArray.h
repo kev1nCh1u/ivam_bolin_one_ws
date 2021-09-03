@@ -60,7 +60,9 @@ public:
    */
   ~GridMapCacheArray()
   {
+    std::cout<<"deleteCacheArray" <<std::endl;
     deleteCacheArray();
+    std::cout<<"deleteCacheArray OK" <<std::endl;
   }
 
   /**
@@ -118,18 +120,26 @@ protected:
    */
   void createCacheArray(const Eigen::Vector2i& newDimensions)
   {
+    std::cout<<"createCacheArray " <<std::endl;
     arrayDimensions = newDimensions;
+    std::cout<<"arrayDimensions = newDimensions; OK" <<std::endl;
 
     int sizeX = arrayDimensions[0];
     int sizeY = arrayDimensions[1];
+    std::cout<<"int sizeX = arrayDimensions[0] OK" <<std::endl;
 
     int size = sizeX * sizeY;
+    std::cout<<"createCacheArray size " << size <<std::endl;
+
+    // delete[] cacheArray;
 
     cacheArray = new CachedMapElement [size];
+    std::cout<<"cacheArray = new CachedMapElement OK" <<std::endl;
 
-    for (int x = 0; x < size; ++x) {
-      cacheArray[x].index = -1;
-    }
+    // for (int x = 0; x < size; ++x) {
+    //   cacheArray[x].index = -1;
+    // }
+    std::cout<<"for (int x = 0; x < size; ++x) OK" <<std::endl;
   }
 
   /**
@@ -137,7 +147,9 @@ protected:
    */
   void deleteCacheArray()
   {
+    std::cout<<"delete[] cacheArray " <<std::endl;
     delete[] cacheArray;
+    std::cout<<"delete[] cacheArray OK" <<std::endl;
   }
 
   /**
@@ -145,13 +157,18 @@ protected:
    */
   void setArraySize(const Eigen::Vector2i& newDimensions)
   {
+    std::cout<<"setArraySize " <<std::endl;
     if (this->arrayDimensions != newDimensions) {
+      std::cout<<"if (this->arrayDimensions != newDimensions) " <<std::endl;
+      std::cout<<"cacheArray " << cacheArray <<std::endl;
       if (cacheArray != 0) {
+        std::cout<<"if (cacheArray != 0)" <<std::endl;
         deleteCacheArray();
         cacheArray = 0;
       }
       createCacheArray(newDimensions);
     }
+    std::cout<<"setArraySize OK" <<std::endl;
   }
 
 protected:

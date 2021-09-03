@@ -994,6 +994,7 @@ bool HectorMappingRos::rosPointCloudToDataContainer(const sensor_msgs::PointClou
 
 void HectorMappingRos::setServiceGetMapData(nav_msgs::GetMap::Response& map_, const hectorslam::GridMap& gridMap)
 {
+	std::cout<<"start to setServiceGetMapData"<<std::endl;
 	Eigen::Vector2f mapOrigin (gridMap.getWorldCoords(Eigen::Vector2f::Zero()));
 	mapOrigin.array() -= gridMap.getCellLength()*0.5f;
 
@@ -1136,7 +1137,7 @@ void HectorMappingRos::commandCallback(const hector_mapping::setmap_hec& command
 
 		}
 		else if(command.type == "Load Change Map early"){
-			ROS_INFO("Load Change Map");
+			ROS_INFO("Load Change Map early");
 			std::string LoadName = command.Name;
 
 
@@ -1494,36 +1495,42 @@ void HectorMappingRos::LoadChangeMap(std::string Map_Name,Eigen::Vector3f ini_po
 		{
 
 			std::cout<<"Map Size: "<<img->w<<" , "<<img->h<<std::endl;
-
+			// delete slamProcessor;
 			slamProcessor = new hectorslam::HectorSlamProcessor(static_cast<float>(p_map_resolution_), int(img->w), int(img->h), Eigen::Vector2f(p_map_start_x_, p_map_start_y_), 1, hectorDrawings, debugInfoProvider);
 			slamProcessor->setUpdateFactorFree(p_update_factor_free_);
 			slamProcessor->setUpdateFactorOccupied(p_update_factor_occupied_);
 			slamProcessor->setMapUpdateMinDistDiff(p_map_update_distance_threshold_);
 			slamProcessor->setMapUpdateMinAngleDiff(p_map_update_angle_threshold_);
+			std::cout<<"slamProcessor = new hectorslam::HectorSlamProcessor OK" <<std::endl;
 
 			int mapLevels = slamProcessor->getMapLevels();
+			std::cout<<"mapLevels = slamProcessor->getMapLevels OK" <<std::endl;
 			mapLevels = 1;
 
 			std::string mapTopic_ = "map";
 
 			for (int i = 0; i < mapLevels; ++i)
 			{
-				std::cout<<"mapPubContainer "<<mapPubContainer.size()<<std::endl;
+				std::cout<<"mapPubContainer size"<<mapPubContainer.size()<<std::endl;
 				mapPubContainer.clear();
-				std::cout<<"mapPubContainer "<<mapPubContainer.size()<<std::endl;
+				std::cout<<"mapPubContainer.clear "<<mapPubContainer.size()<<std::endl;
 
 				mapPubContainer.push_back(MapPublisherContainer());
 				slamProcessor->addMapMutex(i, new HectorMapMutex());
+				std::cout<<"mapPubContainer.push_back OK" <<std::endl;
 
 				std::string mapTopicStr(mapTopic_);
+				std::cout<<"std::string mapTopicStr OK" <<std::endl;
 
 				if (i != 0)
 				{
 					mapTopicStr.append("_" + boost::lexical_cast<std::string>(i));
+					std::cout<<"mapTopicStr.append OK" <<std::endl;
 				}
 
 				std::string mapMetaTopicStr(mapTopicStr);
 				mapMetaTopicStr.append("_metadata");
+				std::cout<<"mapMetaTopicStr OK" <<std::endl;
 
 
 				MapPublisherContainer& tmp = mapPubContainer[i];
@@ -1545,6 +1552,7 @@ void HectorMappingRos::LoadChangeMap(std::string Map_Name,Eigen::Vector3f ini_po
 					mapPubContainer[i].mapMetadataPublisher_.publish(mapPubContainer[i].map_.map.info);
 				}
 			}
+			std::cout<<"for (int i = 0; i < mapLevels; ++i) OK" <<std::endl;
 
 
 			//When we have the memory of map, we can initialize it.

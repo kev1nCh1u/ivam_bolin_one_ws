@@ -70,17 +70,23 @@ public:
 	//原本代碼  
 	//創建多分辨律地圖
     mapRep = new MapRepMultiMap(mapResolution, mapSizeX, mapSizeY, multi_res_size, startCoords, drawInterfaceIn, debugInterfaceIn);
+    std::cout<<"mapRep = new MapRepMultiMap OK" <<std::endl;
 
     this->reset();
+    std::cout<<"this->reset(); OK" <<std::endl;
 
     this->setMapUpdateMinDistDiff(0.4f *1.0f);
+    std::cout<<"this->setMapUpdateMinDistDiff OK" <<std::endl;
     this->setMapUpdateMinAngleDiff(0.13f * 1.0f);
-	//原本代碼  
+	  //原本代碼  
+    std::cout<<"HectorSlamProcessor OK" <<std::endl;
   }
 
   ~HectorSlamProcessor()
   {
+    std::cout<<"delete mapRep " <<std::endl;
     delete mapRep;
+    std::cout<<"delete mapRep OK" <<std::endl;
   }
 
 	void update(const DataContainer& dataContainer_1, const DataContainer& dataContainer_2, int& device_num, const Eigen::Vector3f& poseHintWorld, bool& isRelocation, bool map_without_matching = false, bool isNavigation = false)
@@ -122,12 +128,16 @@ public:
   void reset()
   {
     lastMapUpdatePose = Eigen::Vector3f(FLT_MAX, FLT_MAX, FLT_MAX);
+    std::cout<<"lastMapUpdatePose = Eigen::Vector3f" <<std::endl;
     lastScanMatchPose = Eigen::Vector3f::Zero();
+    std::cout<<"lastScanMatchPose = Eigen::Vector3f::Zero OK" <<std::endl;
     //lastScanMatchPose.x() = -10.0f;
     //lastScanMatchPose.y() = -15.0f;
     //lastScanMatchPose.z() = M_PI*0.15f;
 
     mapRep->reset();
+
+    std::cout<<"mapRep->reset() OK" <<std::endl;
   }
   
   /*=====Anhung========================Set Map Value =============================*/

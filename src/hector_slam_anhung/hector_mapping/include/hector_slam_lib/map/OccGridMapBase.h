@@ -99,7 +99,9 @@ public:
   float getObstacleThreshold() const
   {
     ConcreteCellType temp;
+    std::cout<<"ConcreteCellType temp OK"<<std::endl;
     temp.resetGridCell();
+    std::cout<<"temp.resetGridCell OK"<<std::endl;
     return concreteGridFunctions.getGridProbability(temp);
   }
 

@@ -75,7 +75,9 @@ public:
 
   ~MapAsImageProvider()
   {
+    std::cout<<"delete image_transport_" <<std::endl;
     delete image_transport_;
+    std::cout<<"delete image_transport_ OK" <<std::endl;
   }
 
   //We assume the robot position is available as a PoseStamped here (querying tf would be the more general option)

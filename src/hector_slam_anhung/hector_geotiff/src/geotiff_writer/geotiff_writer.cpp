@@ -59,7 +59,9 @@ GeotiffWriter::GeotiffWriter(bool useCheckerboardCacheIn)
 
 GeotiffWriter::~GeotiffWriter()
 {
+  std::cout<<"delete app" <<std::endl;
   delete app;
+  std::cout<<"delete app OK" <<std::endl;
 }
 
 void GeotiffWriter::setMapFileName(const std::string& mapFileName)

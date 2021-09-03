@@ -46,6 +46,10 @@ class MapRepSingleMap : public MapRepresentationInterface
 public:
   MapRepSingleMap(float mapResolution, DrawInterface* drawInterfaceIn, HectorDebugInfoInterface* debugInterfaceIn)
   {
+    // delete gridMap;
+    // delete gridMapUtil;
+    // delete scanMatcher;
+
     gridMap = new hectorslam::GridMap(mapResolution,Eigen::Vector2i(1024,1024), Eigen::Vector2f(20.0f, 20.0f));
     gridMapUtil = new OccGridMapUtilConfig<GridMap>(gridMap);
     scanMatcher = new hectorslam::ScanMatcher<OccGridMapUtilConfig<GridMap> >(drawInterfaceIn, debugInterfaceIn);
@@ -53,9 +57,11 @@ public:
 
   virtual ~MapRepSingleMap()
   {
+    std::cout<<"delete gridMap" <<std::endl;
     delete gridMap;
     delete gridMapUtil;
     delete scanMatcher;
+    std::cout<<"delete gridMap OK" <<std::endl;
   }
 
   virtual void reset()
