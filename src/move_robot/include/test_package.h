@@ -1042,6 +1042,10 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 			return true;
 		}
 
+		// kevin 畫出軌跡再rviz
+		draw(TrackingLineMarker, 1.0, 0.0, 0.0, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint);
+
+
 		if (isInitial)
 		{
 
@@ -1139,19 +1143,20 @@ bool test_package::Tracking_Angle_Init(int &subpath_index, bool isReSet)
 			//draw(TrackingLineMarker , 1.0, 0.0, 0.0, A_misson[ready_path_index].sub_missonPath[subpath_index].sub_missonPath_subPoint);
 
 			angular_error = goal_angle - robot_pos.z();
-			//std::cout<<"goal_angle================="<<goal_angle<<std::endl;
-			//std::cout<<"robot_pos.z()================="<<robot_pos.z()<<std::endl;
-			//std::cout<<"==============goal_angle==============="<<goal_angle<<std::endl;
+			std::cout<<"goal_angle================="<<goal_angle<<std::endl;
+			std::cout<<"robot_pos.z()================="<<robot_pos.z()<<std::endl;
 
 			// std::vector<Eigen::Vector3f> test;
 			// test.push_back(robot_pos);
 			// test.push_back(target_pos);
 			// 			drawLine(5, 0.0 ,0.0 ,1.0,test);
 
+			std::cout<<"angular_error================="<<angular_error<<std::endl;
 			if (angular_error > M_PI)
 				angular_error = angular_error - 2 * M_PI;
 			else if (angular_error < -M_PI)
 				angular_error = angular_error + 2 * M_PI;
+			std::cout<<"angular_error================="<<angular_error<<std::endl;
 
 			float angular_p_error = angular_error;
 			float angular_d_error = angular_error - pre_angular_error;
