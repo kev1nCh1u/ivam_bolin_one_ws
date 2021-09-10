@@ -44,11 +44,16 @@ UDP_PORT = 9930
 # 13,3, -0.19, -3.57, -0.02,diff,0,1,two_part_1,0;\
 # E"
 
+# MESSAGE = b"Mr;\
+# 1,0, -0.19, -3.57, 3.14,diff,0,1,two_part_1;\
+# 2,19, 1.38, -3.42, 3.14,diff,0,1,two_part_1;\
+# 3,0, -0.19, -3.57, -0.02,diff,0,1,two_part_1;\
+# 4,3, 0, 0, -0.02,diff,0,1,two_part_1,0;\
+# E"
+
 MESSAGE = b"Mr;\
 1,0, -0.19, -3.57, 3.14,diff,0,1,two_part_1;\
-2,19, 1.38, -3.42, 3.14,diff,0,1,two_part_1;\
-3,0, -0.19, -3.57, -0.02,diff,0,1,two_part_1;\
-4,3, 0, 0, -0.02,diff,0,1,two_part_1,0;\
+2,19, 1.38, -3.42, 3.14,diff,0,1,two_part_1,0;\
 E"
 
 print("UDP target IP: %s" % UDP_IP)

@@ -612,7 +612,7 @@ void Control::RevProcess(double receive_period)
 									item>>node_buf.map;
 									break;
 								default:
-									if(recv_pkg_subitem[1]=="3" || recv_pkg_subitem[1]=="5" || recv_pkg_subitem[1]=="9" || recv_pkg_subitem[1]=="14") item>>node_buf.time;
+									if(recv_pkg_subitem[1]=="3" || recv_pkg_subitem[1]=="5" || recv_pkg_subitem[1]=="9" || recv_pkg_subitem[1]=="14" || recv_pkg_subitem[1]=="19") item>>node_buf.time;
 									else if(recv_pkg_subitem[1]=="4" ||recv_pkg_subitem[1]=="6") item>>node_buf.btn_finish;
 									else if(recv_pkg_subitem[1]=="12") item>>node_buf.floor;
 									else if(recv_pkg_subitem[1]=="15" || recv_pkg_subitem[1]=="16" || recv_pkg_subitem[1]=="17" || recv_pkg_subitem[1]=="18") item>>node_buf.turn_info;
