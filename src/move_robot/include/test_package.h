@@ -4776,6 +4776,11 @@ void test_package::Caculate_W_rw(float stop_angle, Eigen::Vector3f robot_pos, fl
 
 void test_package::kevin_cmd_vel(double cmd_vx, double cmd_vy, double cmd_w, int type, std::vector<unsigned char> &return_cmd)
 {
+#ifndef QT_FLAG
+	if(back_trajectory)
+		cmd_w = -cmd_w;
+#endif
+
 	sendreceive.Package_testWheel_encoder(cmd_vx, cmd_vy, cmd_w, type, return_cmd);
 
 	// kevin cmd
